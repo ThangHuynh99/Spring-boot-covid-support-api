@@ -36,6 +36,8 @@ public class UserEntity extends Base{
     private String email;
     @Column
     private Date birthDay;
+    @Column
+    private String  wardName;
 
     @JsonManagedReference
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -1,15 +1,16 @@
 package com.spring.travelbook.service;
 
+import com.spring.travelbook.dto.UserDTO;
 import com.spring.travelbook.entity.UserEntity;
 import com.spring.travelbook.entity.RoleName;
 
 import java.util.List;
 
 public interface UserService {
-    UserEntity findByUserName(String userName);
+    UserDTO findByUserName(String userName);
     void saveRoleToUser(String userName, RoleName roleName);
-    UserEntity save(UserEntity userEntity);
-    List<UserEntity> findAll();
-    UserEntity findByName(String name);
-    UserEntity findByEmail(String email);
+    UserDTO save(UserDTO userDTO);
+    List<UserDTO> findAll();
+    UserDTO findByName(String name);
+    UserDTO findByEmail(String email);
 }
