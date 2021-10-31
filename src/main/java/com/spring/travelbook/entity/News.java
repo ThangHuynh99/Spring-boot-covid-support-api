@@ -13,10 +13,13 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "news")
-public class News extends Base{
-    private String title;
-    private String thumbnail;
-    private String shortDescription;
-    @Column(name = "content", columnDefinition = "TEXT")
-    private String content;
+public class News extends Base {
+  @Column
+  private String title;
+  @Column
+  private String thumbnail;
+  @Column
+  private String shortDescription;
+  @Column(name = "content", columnDefinition = "TEXT")
+  private String content;
 }

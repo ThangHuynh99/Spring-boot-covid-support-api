@@ -12,11 +12,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Ward extends Base{
-    private String name;
+public class Ward extends Base {
+  @Column
+  private String name;
 
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "district_id")
-    private District district;
+  @JsonBackReference
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "district_id")
+  private District district;
 }

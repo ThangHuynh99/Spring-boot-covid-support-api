@@ -23,14 +23,13 @@ public class DistrictController {
     @Autowired
     private DistrictService districtService;
 
-    @ApiOperation(value = "View district ", response = List.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 401, message = "Unauthorization"),
             @ApiResponse(code = 403, message = "Access denied"),
             @ApiResponse(code = 404, message = "Bad request")
     })
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<DistrictDTO>> getAll() {
         return ResponseEntity.ok().body(districtService.findAll());
     }

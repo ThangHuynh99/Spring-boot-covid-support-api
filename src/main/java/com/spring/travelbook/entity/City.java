@@ -16,10 +16,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class City extends Base{
-    private String name;
+public class City extends Base {
+  private String name;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    private List<District> districts;
+  @JsonManagedReference
+  @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+  private List<District> districts;
 }
