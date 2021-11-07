@@ -22,6 +22,8 @@ public class Cart extends Base {
   private Long totalPrice;
   @Column
   private Long quantityProduct;
+  @Column
+  private String cartNumber;
 
   @JsonManagedReference
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -33,6 +35,6 @@ public class Cart extends Base {
 
   @JsonBackReference
   @ManyToOne
-  @JoinColumn(name = "family_id")
-  private FamilyInformation familyInfo;
+  @JoinColumn(name = "user_id")
+  private User userCart;
 }

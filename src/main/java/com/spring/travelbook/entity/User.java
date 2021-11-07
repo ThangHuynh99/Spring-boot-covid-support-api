@@ -17,27 +17,33 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
-public class UserEntity extends Base {
+public class User extends Base {
   @Column
-  private String name;
+  private String familyName;
   @Column
   private String userName;
   @Column
   private String passWord;
   @Column
+  private String address;
+  @Column
+  private String wardName;
+  @Column
+  private int groupNumber;
+  @Column
+  private String token;
+  @Column
+  private String phone;
+  @Column
+  private String name;
+  @Column
   private String age;
   @Column
   private String gender;
   @Column
-  private String address;
-  @Column
-  private String phone;
-  @Column
   private String email;
   @Column
   private Date birthDay;
-  @Column
-  private String wardName;
 
   @JsonManagedReference
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -45,5 +51,13 @@ public class UserEntity extends Base {
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id"),
       inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private List<RoleEntity> roles = new ArrayList<>();
+  private List<Role> roles = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+  private List<Civilian> civilians;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "userCart", cascade = CascadeType.ALL)
+  private List<Cart> cartList;
 }

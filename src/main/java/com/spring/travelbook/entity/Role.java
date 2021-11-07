@@ -14,12 +14,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoleEntity extends Base {
+public class Role extends Base {
   @Column
   @Enumerated(EnumType.STRING)
   private RoleName roleName;
 
   @JsonBackReference
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-  private List<UserEntity> users = new ArrayList<>();
+  private List<User> users = new ArrayList<>();
 }

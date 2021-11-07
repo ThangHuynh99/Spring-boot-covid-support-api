@@ -1,14 +1,13 @@
 package com.spring.travelbook.repository;
 
-import com.spring.travelbook.entity.UserEntity;
+import com.spring.travelbook.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    UserEntity findByUserName(String userName);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUserName(String userName);
 
-    @Query("SELECT u FROM UserEntity u WHERE u.name = ?1")
+    @Query("SELECT u FROM User u WHERE u.name = ?1")
 //    @Query(value = "SELECT u FROM user u WHERE u.name = ?1", nativeQuery = true)
-    UserEntity findByName(String name);
+    User findByName(String name);
 }

@@ -14,4 +14,5 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class Notification extends Base{
     private String type;
+
 }
