@@ -17,7 +17,7 @@ public class Product extends Base {
   private String name;
   private String code;
   private Long quantity;
-  private String status;
+  private boolean status;
   private String price;
   private String product_image;
   private String description;
