@@ -33,7 +33,7 @@ public class CivilianController {
     return ResponseEntity.ok(civilianService.findAllFamilyMemberByUser(id));
   }
 
-  @ApiOperation(value = "Find all faminy member by User", response = Civilian.class)
+  @ApiOperation(value = "Find all Civilian", response = Civilian.class)
   @ApiResponses(
           value = {
                   @ApiResponse(code = 200, message = "Success"),

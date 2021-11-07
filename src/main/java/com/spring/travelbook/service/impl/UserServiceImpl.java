@@ -11,6 +11,8 @@ import com.spring.travelbook.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,15 +58,16 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         log.info("Insert new user to database");
         user.setPassWord(passwordEncoder.encode(user.getPassWord()));
+        List<Role> role = Arrays.asList(roleService.findByRoleName(RoleName.ROLE_USER));
+        user.setRoles(role);
         return userRepository.save(user);
     }
 
     @Override
-    public List<User> findAll() {
-//        return userRepository.findAll();
+    public List<User> findAll(Pageable page) {
         log.info("Select all users from database");
-        List<User> userEntities = em.createQuery("select u from User u", User.class).getResultList();
-        return userEntities;
+        //List<User> userEntities = em.createQuery("select u from User u", User.class).getResultList();
+        return userRepository.findAll(page).getContent();
     }
 
     @Override
