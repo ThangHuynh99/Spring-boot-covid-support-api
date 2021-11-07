@@ -26,6 +26,8 @@ public class Vaccine {
 
   @Column private Date date;
 
+  @Column private String vaccineName;
+
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "civilian_id")

@@ -21,6 +21,7 @@ public class Product extends Base {
   private String price;
   private String product_image;
   private String description;
+  private int groupNumber;
 
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)

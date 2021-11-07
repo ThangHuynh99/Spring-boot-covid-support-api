@@ -28,14 +28,11 @@ public class Civilian extends Base {
   private String email;
   @Column
   private Date birthDay;
-  @Column
-  @Enumerated(EnumType.STRING)
-  private VaccineStatus vaccineStatus;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "familyInfo_id")
-  private FamilyInformation familyInformation;
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id")
+  private User user;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "civilian", cascade = CascadeType.ALL)

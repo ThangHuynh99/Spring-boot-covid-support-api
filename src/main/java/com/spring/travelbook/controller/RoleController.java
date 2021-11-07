@@ -1,7 +1,6 @@
 package com.spring.travelbook.controller;
 
-import com.spring.travelbook.dto.UserDTO;
-import com.spring.travelbook.entity.RoleEntity;
+import com.spring.travelbook.entity.Role;
 import com.spring.travelbook.service.RoleService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -19,7 +18,7 @@ import java.util.List;
 public class RoleController {
   @Autowired private static RoleService roleService;
 
-  @ApiOperation(value = "View list role", response = UserDTO.class)
+  @ApiOperation(value = "View list role", response = Role.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -28,7 +27,7 @@ public class RoleController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("/")
-  public ResponseEntity<List<RoleEntity>> findAll() {
+  public ResponseEntity<List<Role>> findAll() {
     return ResponseEntity.ok().body(roleService.findAll());
   }
 }

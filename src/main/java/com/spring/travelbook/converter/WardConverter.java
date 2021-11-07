@@ -1,8 +1,6 @@
 package com.spring.travelbook.converter;
 
-import com.spring.travelbook.dto.UserDTO;
 import com.spring.travelbook.dto.WardDTO;
-import com.spring.travelbook.entity.UserEntity;
 import com.spring.travelbook.entity.Ward;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
