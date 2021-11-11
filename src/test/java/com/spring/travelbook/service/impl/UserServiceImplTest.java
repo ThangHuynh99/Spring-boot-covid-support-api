@@ -1,6 +1,6 @@
 package com.spring.travelbook.service.impl;
 
-import com.spring.travelbook.entity.User;
+import com.spring.travelbook.entity.UserEntity;
 import com.spring.travelbook.repository.UserRepository;
 import com.spring.travelbook.service.UserService;
 import org.junit.Assert;
@@ -23,7 +23,7 @@ class UserServiceImplTest {
     @Autowired
     private UserService userService;
 
-    private List<User> users;
+    private List<UserEntity> users;
 
     @Test
     void findByUserName() {

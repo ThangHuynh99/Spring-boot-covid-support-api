@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
-public class User extends Base {
+public class UserEntity extends Base {
   @Column
   private String familyName;
   @Column

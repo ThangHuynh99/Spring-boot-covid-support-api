@@ -2,7 +2,6 @@ package com.spring.travelbook.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.spring.travelbook.constant.OrderConstant;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,5 +35,5 @@ public class Cart extends Base {
   @JsonBackReference
   @ManyToOne
   @JoinColumn(name = "user_id")
-  private User userCart;
+  private UserEntity userCart;
 }

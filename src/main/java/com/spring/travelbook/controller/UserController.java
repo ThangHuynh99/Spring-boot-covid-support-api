@@ -1,7 +1,7 @@
 package com.spring.travelbook.controller;
 
-import com.spring.travelbook.entity.RoleName;
-import com.spring.travelbook.entity.User;
+import com.spring.travelbook.constant.RoleName;
+import com.spring.travelbook.entity.UserEntity;
 import com.spring.travelbook.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,14 +29,14 @@ public class UserController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("/")
-  public ResponseEntity<List<User>> getUsers(
+  public ResponseEntity<List<UserEntity>> getUsers(
       @RequestParam(value = "page", defaultValue = "1", required = false) int page) {
     Pageable pageable = PageRequest.of(page - 1, 20);
 
     return ResponseEntity.ok().body(userService.findAll(pageable));
   }
 
-  @ApiOperation(value = "View user by name", response = User.class)
+  @ApiOperation(value = "View user by name", response = UserEntity.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -46,11 +46,11 @@ public class UserController {
       })
   @ApiParam(value = "name of user")
   @GetMapping("/{name}")
-  public ResponseEntity<User> getUserByName(@PathVariable("name") String name) {
+  public ResponseEntity<UserEntity> getUserByName(@PathVariable("name") String name) {
     return ResponseEntity.ok().body(userService.findByName(name));
   }
 
-  @ApiOperation(value = "View user by email", response = User.class)
+  @ApiOperation(value = "View user by email", response = UserEntity.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -59,11 +59,11 @@ public class UserController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("/email/{email}")
-  public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
+  public ResponseEntity<UserEntity> getUserByEmail(@PathVariable("email") String email) {
     return ResponseEntity.ok().body(userService.findByEmail(email));
   }
 
-  @ApiOperation(value = "View user by username", response = User.class)
+  @ApiOperation(value = "View user by username", response = UserEntity.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -72,21 +72,8 @@ public class UserController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("/username/{username}")
-  public ResponseEntity<User> getUserByUserName(@PathVariable("userName") String userName) {
+  public ResponseEntity<UserEntity> getUserByUserName(@PathVariable("userName") String userName) {
     return ResponseEntity.ok().body(userService.findByUserName(userName));
-  }
-
-  @ApiOperation(value = "Save user to database", response = User.class)
-  @ApiResponses(
-      value = {
-        @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 401, message = "Unauthorization"),
-        @ApiResponse(code = 403, message = "Access denied"),
-        @ApiResponse(code = 404, message = "Bad request")
-      })
-  @PostMapping("")
-  public ResponseEntity<User> save(@RequestBody User user) {
-    return ResponseEntity.ok().body(userService.save(user));
   }
 
   @ApiOperation(value = "Save role to user", response = Void.class)
