@@ -71,7 +71,7 @@ public class UserController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("/username/{username}")
+  @GetMapping("/username/{userName}")
   public ResponseEntity<UserEntity> getUserByUserName(@PathVariable("userName") String userName) {
     return ResponseEntity.ok().body(userService.findByUserName(userName));
   }

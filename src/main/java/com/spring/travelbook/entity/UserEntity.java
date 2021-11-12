@@ -29,7 +29,7 @@ public class UserEntity extends Base {
   @Column
   private String wardName;
   @Column
-  private int groupNumber;
+  private Long groupNumber;
   @Column
   private String token;
   @Column
