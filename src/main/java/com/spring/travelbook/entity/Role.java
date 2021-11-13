@@ -1,6 +1,7 @@
 package com.spring.travelbook.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.spring.travelbook.constant.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,5 @@ public class Role extends Base {
 
   @JsonBackReference
   @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-  private List<User> users = new ArrayList<>();
+  private List<UserEntity> users = new ArrayList<>();
 }

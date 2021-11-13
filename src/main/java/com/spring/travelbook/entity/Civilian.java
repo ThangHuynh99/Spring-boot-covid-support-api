@@ -32,7 +32,7 @@ public class Civilian extends Base {
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
-  private User user;
+  private UserEntity user;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "civilian", cascade = CascadeType.ALL)

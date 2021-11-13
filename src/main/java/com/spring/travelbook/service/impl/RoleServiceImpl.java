@@ -3,7 +3,7 @@ package com.spring.travelbook.service.impl;
 import com.spring.travelbook.repository.RoleRepository;
 import com.spring.travelbook.service.RoleService;
 import com.spring.travelbook.entity.Role;
-import com.spring.travelbook.entity.RoleName;
+import com.spring.travelbook.constant.RoleName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.spring.travelbook.service;
 
 import com.spring.travelbook.entity.Role;
-import com.spring.travelbook.entity.RoleName;
+import com.spring.travelbook.constant.RoleName;
 
 import java.util.List;
 

@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
-public class User extends Base {
+public class UserEntity extends Base {
   @Column
   private String familyName;
   @Column
@@ -29,7 +29,7 @@ public class User extends Base {
   @Column
   private String wardName;
   @Column
-  private int groupNumber;
+  private Long groupNumber;
   @Column
   private String token;
   @Column
@@ -46,7 +46,7 @@ public class User extends Base {
   private Date birthDay;
 
   @JsonManagedReference
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id"),
