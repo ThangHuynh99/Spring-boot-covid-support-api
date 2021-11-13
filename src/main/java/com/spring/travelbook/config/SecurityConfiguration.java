@@ -35,12 +35,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .disable()
         .authorizeRequests()
         .antMatchers(
-            "/api/v1/auth/**",
+            "/api/v1/auth/login",
             "/api/v1/ward",
             "/api/v1/district",
             "/api/v1/ward/**",
-            "/api/v1/district/**",
-            "/api/v1/users/**")
+            "/api/v1/district/**")
         .permitAll()
         .antMatchers("/api/v1/admin/**")
         .hasAnyAuthority(RoleName.ROLE_ADMIN.name())

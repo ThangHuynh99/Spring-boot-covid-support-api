@@ -1,6 +1,5 @@
 package com.spring.travelbook.dto;
 
-import com.spring.travelbook.entity.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -11,7 +10,7 @@ public class MyUser extends User {
   private Long id;
   private String wardName;
   private Long groupNumber;
-  private List<Role> roles;
+  private List<RoleDTO> roles;
 
   public MyUser(
       String username, String password, Collection<? extends GrantedAuthority> authorities) {
@@ -42,11 +41,11 @@ public class MyUser extends User {
     return groupNumber;
   }
 
-  public List<Role> getRoles() {
+  public List<RoleDTO> getRoles() {
     return roles;
   }
 
-  public void setRoles(List<Role> roles) {
+  public void setRoles(List<RoleDTO> roles) {
     this.roles = roles;
   }
 }

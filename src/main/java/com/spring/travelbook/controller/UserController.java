@@ -28,7 +28,7 @@ public class UserController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<List<UserEntity>> getUsers(
       @RequestParam(value = "page", defaultValue = "1", required = false) int page) {
     Pageable pageable = PageRequest.of(page - 1, 20);

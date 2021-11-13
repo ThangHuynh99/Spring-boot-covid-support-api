@@ -46,7 +46,7 @@ public class UserEntity extends Base {
   private Date birthDay;
 
   @JsonManagedReference
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinTable(
       name = "user_role",
       joinColumns = @JoinColumn(name = "user_id"),

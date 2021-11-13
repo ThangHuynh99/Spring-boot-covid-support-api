@@ -1,6 +1,6 @@
 package com.spring.travelbook.response;
 
-import com.spring.travelbook.entity.Role;
+import com.spring.travelbook.dto.RoleDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +16,5 @@ public class JwtResponse {
     private String userName;
     private String wardName;
     private Long groupNumber;
-    private List<Role> roles;
+    private List<RoleDTO> roles;
 }

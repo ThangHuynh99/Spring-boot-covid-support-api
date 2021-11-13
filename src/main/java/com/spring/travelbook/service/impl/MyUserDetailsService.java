@@ -1,6 +1,7 @@
 package com.spring.travelbook.service.impl;
 
 import com.spring.travelbook.dto.MyUser;
+import com.spring.travelbook.dto.RoleDTO;
 import com.spring.travelbook.entity.Role;
 import com.spring.travelbook.entity.UserEntity;
 import com.spring.travelbook.repository.UserRepository;
@@ -51,7 +52,18 @@ public class MyUserDetailsService implements UserDetailsService {
     myUser.setId(userEntity.getId());
     myUser.setGroupNumber(userEntity.getGroupNumber());
     myUser.setWardName(userEntity.getWardName());
-    myUser.setRoles(userEntity.getRoles());
+    myUser.setRoles(toRoleDTO(userEntity.getRoles()));
     return myUser;
+  }
+
+  private List<RoleDTO> toRoleDTO(List<Role> roles) {
+    List<RoleDTO> roleDTOS = new ArrayList<>();
+      for (Role role: roles) {
+        RoleDTO roleDTO = new RoleDTO();
+        roleDTO.setId(role.getId());
+        roleDTO.setRoleName(role.getRoleName());
+        roleDTOS.add(roleDTO);
+      }
+    return roleDTOS;
   }
 }

@@ -3,7 +3,6 @@ package com.spring.travelbook.controller;
 import com.spring.travelbook.dto.LoginRequest;
 import com.spring.travelbook.dto.RegisterDTO;
 import com.spring.travelbook.entity.UserEntity;
-import com.spring.travelbook.response.JwtResponse;
 import com.spring.travelbook.service.AuthenticationService;
 import com.spring.travelbook.service.UserService;
 import io.swagger.annotations.ApiOperation;
