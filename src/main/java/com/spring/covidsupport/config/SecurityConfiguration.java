@@ -21,6 +21,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 // @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+  private static final String[] AUTH_WHITELIST = {
+    // -- Swagger UI v2
+    "/v2/api-docs",
+    "/swagger-resources",
+    "/swagger-resources/**",
+    "/configuration/ui",
+    "/configuration/security",
+    "/swagger-ui.html",
+    "/webjars/**",
+    // -- Swagger UI v3 (OpenAPI)
+    "/v3/api-docs/**",
+    "/swagger-ui/**",
+    // other public endpoints of your API may be appended to this array
+    "/api/v1/auth/**",
+    "/api/v1/ward",
+    "/api/v1/district",
+    "/api/v1/ward/**",
+    "/api/v1/district/**"
+  };
   @Autowired private MyUserDetailsService myUserDetailsService;
   @Autowired private JwtRequestFilter jwtRequestFilter;
 
@@ -34,12 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     http.csrf()
         .disable()
         .authorizeRequests()
-        .antMatchers(
-            "/api/v1/auth/**",
-            "/api/v1/ward",
-            "/api/v1/district",
-            "/api/v1/ward/**",
-            "/api/v1/district/**")
+        .antMatchers(AUTH_WHITELIST)
         .permitAll()
         .antMatchers("/api/v1/admin/**")
         .hasAnyAuthority(RoleName.ROLE_ADMIN.name())
