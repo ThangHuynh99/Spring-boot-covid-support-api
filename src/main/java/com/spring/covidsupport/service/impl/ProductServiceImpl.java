@@ -36,9 +36,13 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public ProductDTO update(ProductDTO product) {
-    Product productEntity = productRepository.save(productConverter.toEntity(product));
-    return productConverter.toDTO(productEntity);
+  public ResponseEntity<?> update(ProductDTO product) {
+    Product productEntity = productRepository.getById(product.getId());
+    if(productEntity == null) {
+      return ResponseEntity.badRequest().body(new MessageResponse("Product does not exist!"));
+    }
+    Product result = productRepository.save(productConverter.toEntity(product, productEntity));
+    return ResponseEntity.ok(productConverter.toDTO(result));
   }
 
   @Override

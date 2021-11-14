@@ -1,6 +1,7 @@
 package com.spring.covidsupport.controller;
 
 import com.spring.covidsupport.constant.RoleName;
+import com.spring.covidsupport.dto.UserDTO;
 import com.spring.covidsupport.entity.UserEntity;
 import com.spring.covidsupport.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -90,5 +91,18 @@ public class UserController {
       @RequestParam(value = "roleName") RoleName roleName) {
     userService.saveRoleToUser(userName, roleName);
     return ResponseEntity.ok().build();
+  }
+
+  @ApiOperation(value = "Update current user", response = UserEntity.class)
+  @ApiResponses(
+          value = {
+                  @ApiResponse(code = 200, message = "Success"),
+                  @ApiResponse(code = 401, message = "Unauthorization"),
+                  @ApiResponse(code = 403, message = "Access denied"),
+                  @ApiResponse(code = 404, message = "Bad request")
+          })
+  @PutMapping("")
+  public ResponseEntity<?> update(@RequestBody UserDTO userDTO) {
+    return userService.update(userDTO);
   }
 }

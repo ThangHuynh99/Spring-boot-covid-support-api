@@ -1,16 +1,20 @@
 package com.spring.covidsupport.service.impl;
 
 import com.spring.covidsupport.constant.RoleName;
+import com.spring.covidsupport.converter.UserConverter;
+import com.spring.covidsupport.dto.UserDTO;
 import com.spring.covidsupport.entity.Role;
 import com.spring.covidsupport.entity.UserEntity;
 import com.spring.covidsupport.repository.CivilianRepository;
 import com.spring.covidsupport.repository.UserRepository;
+import com.spring.covidsupport.response.MessageResponse;
 import com.spring.covidsupport.service.RoleService;
 import com.spring.covidsupport.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -32,6 +37,7 @@ public class UserServiceImpl implements UserService {
   private final PasswordEncoder passwordEncoder;
 
   @Autowired private CivilianRepository civilianRepository;
+  @Autowired private UserConverter userConverter;
 
   @PersistenceContext private EntityManager em;
 
@@ -85,5 +91,15 @@ public class UserServiceImpl implements UserService {
     String sql = "select u from UserEntity u where u.email = ?1";
     TypedQuery<UserEntity> query = em.createQuery(sql, UserEntity.class).setParameter(1, email);
     return query.getSingleResult();
+  }
+
+  @Override
+  public ResponseEntity<?> update(UserDTO userDTO) {
+    UserEntity userEntity = userRepository.getById(userDTO.getId());
+    if(userEntity == null) {
+      return ResponseEntity.badRequest().body(new MessageResponse("User does not exist"));
+    }
+     userEntity = userRepository.save(userConverter.toEntity(userDTO, userEntity));
+    return ResponseEntity.ok(userEntity);
   }
 }

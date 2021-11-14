@@ -2,6 +2,7 @@ package com.spring.covidsupport.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.spring.covidsupport.constant.VaccineStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,18 +17,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Civilian extends Base {
+  @Column private String name;
+  @Column private String age;
+  @Column private String gender;
+  @Column private String phone;
+  @Column private String email;
+  @Column private Date birthDay;
+
   @Column
-  private String name;
-  @Column
-  private String age;
-  @Column
-  private String gender;
-  @Column
-  private String phone;
-  @Column
-  private String email;
-  @Column
-  private Date birthDay;
+  @Enumerated(EnumType.STRING)
+  private VaccineStatus vaccineStatus;
 
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)

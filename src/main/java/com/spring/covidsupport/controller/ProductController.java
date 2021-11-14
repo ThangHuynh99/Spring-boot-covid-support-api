@@ -42,8 +42,8 @@ public class ProductController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @PutMapping("")
-  public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO product) {
-    return ResponseEntity.ok(productService.update(product));
+  public ResponseEntity<?> update(@RequestBody ProductDTO product) {
+    return productService.update(product);
   }
 
   @ApiOperation(value = "find all products", response = Product.class)

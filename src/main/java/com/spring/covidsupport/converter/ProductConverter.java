@@ -19,4 +19,11 @@ public class ProductConverter {
     ProductDTO dto = mapper.map(entity, ProductDTO.class);
     return dto;
   }
+
+  public Product toEntity(ProductDTO dto, Product productEntity) {
+    productEntity.setDescription(dto.getDescription());
+    productEntity.setPrice(dto.getPrice());
+    productEntity.setQuantity(dto.getQuantity());
+    return productEntity;
+  }
 }

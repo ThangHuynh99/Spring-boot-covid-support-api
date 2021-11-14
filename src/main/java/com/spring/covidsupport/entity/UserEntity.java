@@ -31,8 +31,6 @@ public class UserEntity extends Base {
   @Column
   private Long groupNumber;
   @Column
-  private String token;
-  @Column
   private String phone;
   @Column
   private String name;

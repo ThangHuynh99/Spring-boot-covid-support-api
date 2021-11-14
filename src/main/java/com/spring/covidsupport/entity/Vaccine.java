@@ -1,7 +1,6 @@
 package com.spring.covidsupport.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spring.covidsupport.constant.VaccineStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,12 +18,7 @@ public class Vaccine {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column
-  @Enumerated(EnumType.STRING)
-  private VaccineStatus vaccineStatus;
-
   @Column private Date date;
-
   @Column private String vaccineName;
 
   @JsonBackReference

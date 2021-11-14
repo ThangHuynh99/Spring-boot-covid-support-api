@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProductService {
   ProductDTO save(ProductDTO product);
 
-  ProductDTO update(ProductDTO product);
+  ResponseEntity<?> update(ProductDTO product);
 
   void delete(Long id);
 
