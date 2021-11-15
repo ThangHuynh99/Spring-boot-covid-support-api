@@ -102,4 +102,35 @@ public class UserServiceImpl implements UserService {
      userEntity = userRepository.save(userConverter.toEntity(userDTO, userEntity));
     return ResponseEntity.ok(userEntity);
   }
+
+  @Override
+  public ResponseEntity<?> updateAdmin(UserDTO userDTO) {
+    UserEntity userEntity = userRepository.getById(userDTO.getId());
+    if(userEntity == null) {
+      return ResponseEntity.badRequest().body(new MessageResponse("User does not exist"));
+    }
+
+    userEntity = userRepository.save(userConverter.toUpdateAdminEntity(userDTO, userEntity));
+    return ResponseEntity.ok(userEntity);
+  }
+
+  @Override
+  public ResponseEntity<?> changePassword(Long id, String newPassword) {
+    UserEntity userEntity = userRepository.getById(id);
+    if(userEntity == null) {
+      return ResponseEntity.badRequest().body(new MessageResponse("User does not exist"));
+    }
+
+    userEntity.setPassWord(passwordEncoder.encode(newPassword));
+    userRepository.save(userEntity);
+    return ResponseEntity.ok().build();
+  }
+
+  @Override
+  public ResponseEntity<List<UserEntity>> findAllByRoleUser(Pageable pageable) {
+    Role role = roleService.findByRoleName(RoleName.ROLE_USER);
+    List<Role> roles = Arrays.asList(role);
+    List<UserEntity> results = userRepository.findAllByRoles(pageable, roles);
+    return ResponseEntity.ok(results);
+  }
 }

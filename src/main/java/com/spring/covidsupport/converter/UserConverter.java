@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class UserConverter {
     @Autowired
@@ -23,7 +25,20 @@ public class UserConverter {
     }
 
     public UserEntity toEntity(UserDTO dto, UserEntity userEntity) {
-        userEntity = mapper.map(dto, UserEntity.class);
+        userEntity.setAddress(dto.getAddress());
+        userEntity.setFamilyName((dto.getFamilyName()));
+        userEntity.setPhone(dto.getPhone());
+        userEntity.setEmail(dto.getEmail());
+    return userEntity;
+    }
+
+    public UserEntity toUpdateAdminEntity(UserDTO dto, UserEntity userEntity) {
+        userEntity.setAddress(dto.getAddress());
+        userEntity.setPhone(dto.getPhone());
+        userEntity.setEmail(dto.getEmail());
+        userEntity.setName(dto.getName());
+        userEntity.setGender(dto.getGender());
+        userEntity.setBirthDay(dto.getBirthDay());
         return userEntity;
     }
 }

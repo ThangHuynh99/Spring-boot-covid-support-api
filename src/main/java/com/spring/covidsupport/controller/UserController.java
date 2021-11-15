@@ -37,6 +37,22 @@ public class UserController {
     return ResponseEntity.ok().body(userService.findAll(pageable));
   }
 
+  @ApiOperation(value = "View list users by ROLE_USER", response = UserEntity.class)
+  @ApiResponses(
+          value = {
+                  @ApiResponse(code = 200, message = "Success"),
+                  @ApiResponse(code = 401, message = "Unauthorization"),
+                  @ApiResponse(code = 403, message = "Access denied"),
+                  @ApiResponse(code = 404, message = "Bad request")
+          })
+  @GetMapping("/RoleUser")
+  public ResponseEntity<List<UserEntity>> findAllByRoleUser(
+          @RequestParam(value = "page", defaultValue = "1", required = false) int page) {
+    Pageable pageable = PageRequest.of(page - 1, 20);
+
+    return userService.findAllByRoleUser(pageable);
+  }
+
   @ApiOperation(value = "View user by name", response = UserEntity.class)
   @ApiResponses(
       value = {
@@ -95,14 +111,41 @@ public class UserController {
 
   @ApiOperation(value = "Update current user", response = UserEntity.class)
   @ApiResponses(
-          value = {
-                  @ApiResponse(code = 200, message = "Success"),
-                  @ApiResponse(code = 401, message = "Unauthorization"),
-                  @ApiResponse(code = 403, message = "Access denied"),
-                  @ApiResponse(code = 404, message = "Bad request")
-          })
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
   @PutMapping("")
   public ResponseEntity<?> update(@RequestBody UserDTO userDTO) {
     return userService.update(userDTO);
+  }
+
+  @ApiOperation(value = "Update admin and manager account", response = UserEntity.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
+  @PutMapping("/admin")
+  public ResponseEntity<?> updateAdmin(@RequestBody UserDTO userDTO) {
+    return userService.updateAdmin(userDTO);
+  }
+
+  @ApiOperation(value = "Update admin and manager account", response = UserEntity.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
+  @PutMapping("/password/{id}/{newPassword}")
+  public ResponseEntity<?> changePassword(
+      @PathVariable("id") Long id, @PathVariable("newPassword") String newPassword) {
+    return userService.changePassword(id, newPassword);
   }
 }
