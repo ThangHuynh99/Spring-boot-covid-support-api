@@ -18,9 +18,8 @@ public class UserDTO extends Abstract{
     private Long groupNumber;
     private String phone;
     private String name;
-    private String age;
     private String gender;
     private String email;
-    private Date birthDay;
+    private String birthDay;
     private String district;
 }

@@ -41,7 +41,7 @@ public class UserEntity extends Base {
   @Column
   private String email;
   @Column
-  private Date birthDay;
+  private String birthDay;
   @Column
   private String district;
 
