@@ -24,6 +24,10 @@ public class Civilian extends Base {
   @Column private String cccd;
   @Column private String birthDay;
 
+  @Column
+  @Enumerated(EnumType.STRING)
+  private VaccineStatus vaccineStatus;
+
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
