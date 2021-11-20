@@ -85,6 +85,20 @@ public class UserController {
     return ResponseEntity.ok().body(userService.findByName(name));
   }
 
+  @ApiOperation(value = "View user by id", response = UserEntity.class)
+  @ApiResponses(
+          value = {
+                  @ApiResponse(code = 200, message = "Success"),
+                  @ApiResponse(code = 401, message = "Unauthorization"),
+                  @ApiResponse(code = 403, message = "Access denied"),
+                  @ApiResponse(code = 404, message = "Bad request")
+          })
+  @ApiParam(value = "id of user")
+  @GetMapping("/id/{id}")
+  public ResponseEntity<UserEntity> getOne(@PathVariable("id") Long id) {
+    return ResponseEntity.ok().body(userService.getOne(id));
+  }
+
   /**
    * this api use for get user by email
    * @param email

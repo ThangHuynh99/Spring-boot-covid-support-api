@@ -20,4 +20,5 @@ public interface UserService {
     ResponseEntity<?> updateAdmin(UserDTO userDTO);
     ResponseEntity<?> changePassword(Long id, String newPassword);
 //    ResponseEntity<List<UserEntity>> findAllByRoleUser(Pageable pageable);
+    UserEntity getOne(Long id);
 }

@@ -130,6 +130,11 @@ public class UserServiceImpl implements UserService {
     return ResponseEntity.ok().build();
   }
 
+  @Override
+  public UserEntity getOne(Long id) {
+    return userRepository.getById(id);
+  }
+
 //  @Override
 //  public ResponseEntity<List<UserEntity>> findAllByRoleUser(Pageable pageable) {
 //    Role role = roleService.findByRoleName(RoleName.ROLE_USER);

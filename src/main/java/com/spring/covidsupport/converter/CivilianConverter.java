@@ -27,6 +27,7 @@ public class CivilianConverter {
         entity.setUser(civilian.getUser());
         entity.setCreatedBy(civilian.getCreatedBy());
         entity.setCreatedDate(civilian.getCreatedDate());
+        entity.setVaccineList(civilian.getVaccineList());
         return entity;
     }
 }

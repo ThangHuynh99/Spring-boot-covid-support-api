@@ -38,6 +38,7 @@ public class CivilianServiceImpl implements CivilianService {
 
   /**
    * this method use to update or insert a list of civilians
+   *
    * @param civilians
    */
   @Override
@@ -55,6 +56,7 @@ public class CivilianServiceImpl implements CivilianService {
 
   /**
    * this method use to delete civilian
+   *
    * @param id
    */
   @Override
@@ -64,6 +66,7 @@ public class CivilianServiceImpl implements CivilianService {
 
   /**
    * this method use to save each civilian
+   *
    * @param dto
    * @param family
    */
@@ -71,29 +74,50 @@ public class CivilianServiceImpl implements CivilianService {
     Civilian civilian = civilianConverter.toEntity(dto);
     civilian.setUser(family);
     storeVaccineStatus(dto, civilian);
-    Civilian result =  civilianRepository.save(civilian);
-    List<Vaccine> vaccines = new ArrayList<>();
-    for(VaccineDTO vaccineDTO: dto.getVaccineList()) {
-      vaccines.add(vaccineRepository.save(convertVaccine(vaccineDTO)));
-    }
+    Civilian result = civilianRepository.save(civilian);
+    List<Vaccine> vaccines = getVaccineList(dto);
     result.setVaccineList(vaccines);
     result = civilianRepository.save(result);
     return result;
   }
 
+  private List<Vaccine> getVaccineList(CivilianDTO dto) {
+    List<Vaccine> vaccines = new ArrayList<>();
+    for (VaccineDTO vaccineDTO : dto.getVaccineList()) {
+      vaccines.add(vaccineRepository.save(convertVaccine(vaccineDTO)));
+    }
+    return vaccines;
+  }
+
   /**
    * this method use to update each civilian
+   *
    * @param dto
    */
   public Civilian updateEach(CivilianDTO dto) {
     Civilian civilian = civilianRepository.getById(dto.getId());
     civilian = civilianConverter.toUpdateEntity(dto, civilian);
     storeVaccineStatus(dto, civilian);
+    if (!(civilian.getVaccineList().size() == dto.getVaccineList().size())) {
+      switch (civilian.getVaccineList().size()) {
+        case 0:
+          civilian.getVaccineList().addAll(getVaccineList(dto));
+          break;
+        case 1:
+          civilian.getVaccineList().add(getOneVaccine(dto));
+          break;
+        case 2:
+          break;
+        default:
+          break;
+      }
+    }
     return civilianRepository.save(civilian);
   }
 
   /**
    * this method use to setVaccineStatus to civilian
+   *
    * @param dto, entity
    */
   private void storeVaccineStatus(CivilianDTO dto, Civilian entity) {
@@ -115,5 +139,9 @@ public class CivilianServiceImpl implements CivilianService {
     entity.setDate(dto.getDate());
     entity.setVaccineName(dto.getVaccineName());
     return entity;
+  }
+
+  public Vaccine getOneVaccine(CivilianDTO dto) {
+    return vaccineRepository.save(convertVaccine(dto.getVaccineList().get(1)));
   }
 }
