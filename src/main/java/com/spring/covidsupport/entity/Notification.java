@@ -1,5 +1,6 @@
 package com.spring.covidsupport.entity;
 
+import javafx.scene.media.SubtitleTrack;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,16 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notification extends Base{
-    private String type;
+    private Long orderId;
+    private int read;
+    private String ownerName;
+    private String code;
+    private static Notification instance;
 
+    public static Notification newInstance() {
+        if(instance != null) {
+            return instance;
+        }
+        return new Notification();
+    }
 }

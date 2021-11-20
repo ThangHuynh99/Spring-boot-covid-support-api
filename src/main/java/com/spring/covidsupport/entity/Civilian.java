@@ -18,15 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Civilian extends Base {
   @Column private String name;
-  @Column private String age;
   @Column private String gender;
   @Column private String phone;
   @Column private String email;
-  @Column private Date birthDay;
-
-  @Column
-  @Enumerated(EnumType.STRING)
-  private VaccineStatus vaccineStatus;
+  @Column private String cccd;
+  @Column private String birthDay;
 
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)

@@ -37,8 +37,4 @@ public class Product extends Base {
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   @JoinColumn(name = "catagory_id")
   private Category category;
-
-  @JsonBackReference
-  @ManyToMany(mappedBy = "productList", fetch = FetchType.LAZY)
-  private List<Cart> cartList;
 }

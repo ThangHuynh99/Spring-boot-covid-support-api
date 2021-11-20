@@ -12,11 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 public class CivilianDTO extends Abstract{
     private String name;
-    private String age;
     private String gender;
     private String phone;
     private String email;
-    private Date birthDay;
+    private String birthDay;
+    private String cccd;
     private Long familyId;
     private List<VaccineDTO> vaccineList;
 }

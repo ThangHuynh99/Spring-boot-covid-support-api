@@ -10,13 +10,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findByUserName(String userName);
+  Optional<UserEntity> findByUserName(String userName);
 
-    @Query("SELECT u FROM UserEntity u WHERE u.name = ?1")
-//    @Query(value = "SELECT u FROM user u WHERE u.name = ?1", nativeQuery = true)
-    UserEntity findByName(String name);
+  @Query("SELECT u FROM UserEntity u WHERE u.name = ?1")
+  //    @Query(value = "SELECT u FROM user u WHERE u.name = ?1", nativeQuery = true)
+  UserEntity findByName(String name);
 
-    boolean existsByEmail(String email);
-    boolean existsByUserName(String userName);
-    List<UserEntity> findAllByRoles(Pageable pageable, List<Role> roles);
+  boolean existsByEmail(String email);
+
+  boolean existsByUserName(String userName);
+
+  List<UserEntity> findAllByRoles(Pageable pageable, List<Role> roles);
+
+  List<UserEntity> findByWardNameAndGroupNumberAndDistrict(
+      String wardName, int groupNumber, String district, Pageable pageable);
 }

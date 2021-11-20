@@ -1,8 +1,9 @@
 package com.spring.covidsupport.controller;
 
-import com.spring.covidsupport.dto.CivilianDTO;
-import com.spring.covidsupport.entity.Civilian;
-import com.spring.covidsupport.service.CivilianService;
+import com.spring.covidsupport.dto.CartDTO;
+import com.spring.covidsupport.dto.LocationFiltterRequest;
+import com.spring.covidsupport.entity.Cart;
+import com.spring.covidsupport.service.CartService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/civilians")
-public class CivilianController {
-  @Autowired private CivilianService civilianService;
+@RequestMapping("/api/v1/cart")
+public class CartController {
+  @Autowired private CartService cartService;
 
-  @ApiOperation(value = "Find all faminy member by User", response = Civilian.class)
+  @ApiOperation(value = "Save cart", response = Cart.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -25,13 +26,56 @@ public class CivilianController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("/{familyId}")
-  public ResponseEntity<List<Civilian>> findAllFamilyMemberByUser(
-      @PathVariable("familyId") Long familyId) {
-    return ResponseEntity.ok(civilianService.findAllFamilyMemberByUser(familyId));
+  @PostMapping("")
+  public ResponseEntity<Cart> save(@RequestBody CartDTO cart) {
+    return ResponseEntity.ok(cartService.save(cart));
   }
 
-  @ApiOperation(value = "Find all Civilian", response = Civilian.class)
+  @ApiOperation(value = "update cart status", response = Cart.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
+  @PostMapping("/{id}/{status}")
+  public ResponseEntity<?> updateCartStatus(
+      @PathVariable("id") Long id, @PathVariable("status") int status) {
+    return cartService.updateCartStatus(id, status);
+  }
+
+  @ApiOperation(value = "get cart by id", response = Cart.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
+  @GetMapping("/{idCart}")
+  public ResponseEntity<Cart> getOne(
+      @PathVariable("id") Long id, @PathVariable("idCart") long idCart) {
+    return ResponseEntity.ok().body(cartService.getOne(id));
+  }
+
+  @ApiOperation(value = "get all cart by user", response = Cart.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
+  @GetMapping("/user/{idUser}")
+  public ResponseEntity<List<Cart>> getByUser(
+      @PathVariable("id") Long id, @PathVariable("idUser") int status) {
+    return ResponseEntity.ok(cartService.getByUser(id));
+  }
+
+  @ApiOperation(
+      value = "get all cart by destination (ward, district, groupNumber)",
+      response = Cart.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -40,49 +84,8 @@ public class CivilianController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("")
-  public ResponseEntity<List<Civilian>> findAll() {
-    return ResponseEntity.ok(civilianService.findAll());
-  }
-
-  @ApiOperation(value = "insert list Civilians to family")
-  @ApiResponses(
-      value = {
-        @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 401, message = "Unauthorization"),
-        @ApiResponse(code = 403, message = "Access denied"),
-        @ApiResponse(code = 404, message = "Bad request")
-      })
-  @PostMapping("/family/{civilians}")
-  public ResponseEntity<List<Civilian>> saveCivilians(
-      @PathVariable("civilians") List<CivilianDTO> civilians) {
-    return civilianService.saveOrUpdateCivilians(civilians);
-  }
-
-  @ApiOperation(value = "update list Civilians")
-  @ApiResponses(
-      value = {
-        @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 401, message = "Unauthorization"),
-        @ApiResponse(code = 403, message = "Access denied"),
-        @ApiResponse(code = 404, message = "Bad request")
-      })
-  @PutMapping("/family/{civilians}")
-  public ResponseEntity<List<Civilian>> updateCivilians(
-      @PathVariable("civilians") List<CivilianDTO> civilians) {
-    return civilianService.saveOrUpdateCivilians(civilians);
-  }
-
-  @ApiOperation(value = "Delete Civilian")
-  @ApiResponses(
-      value = {
-        @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 401, message = "Unauthorization"),
-        @ApiResponse(code = 403, message = "Access denied"),
-        @ApiResponse(code = 404, message = "Bad request")
-      })
-  @PutMapping("/family/{civilianId}")
-  public ResponseEntity deleteCivilian(@PathVariable("civilianId") Long id) {
-    civilianService.delete(id);
-    return ResponseEntity.ok().build();
+  public ResponseEntity<List<Cart>> getAllByDestination(
+      @RequestBody LocationFiltterRequest filter) {
+    return ResponseEntity.ok(cartService.getByDistination(filter));
   }
 }

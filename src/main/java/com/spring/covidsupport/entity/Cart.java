@@ -16,6 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Cart extends Base {
   @Column
+  private String ownerName;
+  @Column
+  private String cartCode;
+  @Column
   private int status;
   @Column
   private Long totalPrice;
@@ -23,17 +27,19 @@ public class Cart extends Base {
   private Long quantityProduct;
   @Column
   private String cartNumber;
+  @Column
+  private String wardName;
+  @Column
+  private String groupNumber;
+  @Column
+  private String district;
 
   @JsonManagedReference
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinTable(
-      name = "product_cart",
-      joinColumns = @JoinColumn(name = "cart_id"),
-      inverseJoinColumns = @JoinColumn(name = "product_id"))
-  private List<Product> productList;
+  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+  private List<ProductOrder> productOrders;
 
   @JsonBackReference
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id")
   private UserEntity userCart;
 }

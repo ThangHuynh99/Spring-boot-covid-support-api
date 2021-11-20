@@ -41,7 +41,9 @@ public class UserEntity extends Base {
   @Column
   private String email;
   @Column
-  private Date birthDay;
+  private String birthDay;
+  @Column
+  private String district;
 
   @JsonManagedReference
   @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -58,4 +60,8 @@ public class UserEntity extends Base {
   @JsonManagedReference
   @OneToMany(mappedBy = "userCart", cascade = CascadeType.ALL)
   private List<Cart> cartList;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "userE", cascade = CascadeType.ALL)
+  private List<Vaccine> vaccineList;
 }
