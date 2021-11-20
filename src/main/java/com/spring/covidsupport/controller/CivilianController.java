@@ -53,8 +53,8 @@ public class CivilianController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @PostMapping("/family")
-  public ResponseEntity<List<Civilian>> saveCivilians(@RequestBody List<CivilianDTO> civilians) {
-    return civilianService.saveOrUpdateCivilians(civilians);
+  public ResponseEntity<Civilian> saveCivilians(@RequestBody CivilianDTO civilian) {
+    return civilianService.saveOrUpdateCivilians(civilian);
   }
 
   @ApiOperation(value = "update list Civilians")
@@ -66,8 +66,8 @@ public class CivilianController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @PutMapping("/family")
-  public ResponseEntity<List<Civilian>> updateCivilians(@RequestBody List<CivilianDTO> civilians) {
-    return civilianService.saveOrUpdateCivilians(civilians);
+  public ResponseEntity<Civilian> updateCivilians(@RequestBody CivilianDTO civilian) {
+    return civilianService.saveOrUpdateCivilians(civilian);
   }
 
   @ApiOperation(value = "Delete Civilian")

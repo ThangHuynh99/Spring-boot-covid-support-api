@@ -2,6 +2,7 @@ package com.spring.covidsupport.service.impl;
 
 import com.spring.covidsupport.constant.VaccineStatus;
 import com.spring.covidsupport.converter.CivilianConverter;
+import com.spring.covidsupport.converter.VaccineConverter;
 import com.spring.covidsupport.dto.CivilianDTO;
 import com.spring.covidsupport.dto.VaccineDTO;
 import com.spring.covidsupport.entity.Civilian;
@@ -14,17 +15,19 @@ import com.spring.covidsupport.service.CivilianService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class CivilianServiceImpl implements CivilianService {
   @Autowired private CivilianRepository civilianRepository;
   @Autowired private UserRepository userRepository;
   @Autowired private CivilianConverter civilianConverter;
   @Autowired private VaccineRepository vaccineRepository;
+  @Autowired private VaccineConverter vaccineConverter;
 
   @Override
   public List<Civilian> findAllFamilyMemberByUser(Long id) {
@@ -39,17 +42,16 @@ public class CivilianServiceImpl implements CivilianService {
   /**
    * this method use to update or insert a list of civilians
    *
-   * @param civilians
+   * @param civilian
    */
   @Override
-  public ResponseEntity<List<Civilian>> saveOrUpdateCivilians(List<CivilianDTO> civilians) {
-    Long familyId = civilians.get(0).getFamilyId();
-    UserEntity family = userRepository.getById(familyId);
-    List<Civilian> result = new ArrayList<>();
-    if (family.getCivilians().size() == 0) {
-      result = civilians.stream().map(data -> saveEach(data, family)).collect(Collectors.toList());
+  public ResponseEntity<Civilian> saveOrUpdateCivilians(CivilianDTO civilian) {
+    Civilian result = new Civilian();
+    if (civilian.getId() == null) {
+      UserEntity family = userRepository.getById(civilian.getFamilyId());
+      result = save(civilian, family);
     } else {
-      result = civilians.stream().map(data -> updateEach(data)).collect(Collectors.toList());
+      result = update(civilian);
     }
     return ResponseEntity.ok(result);
   }
@@ -70,23 +72,17 @@ public class CivilianServiceImpl implements CivilianService {
    * @param dto
    * @param family
    */
-  private Civilian saveEach(CivilianDTO dto, UserEntity family) {
+  private Civilian save(CivilianDTO dto, UserEntity family) {
     Civilian civilian = civilianConverter.toEntity(dto);
     civilian.setUser(family);
     storeVaccineStatus(dto, civilian);
     Civilian result = civilianRepository.save(civilian);
-    List<Vaccine> vaccines = getVaccineList(dto);
-    result.setVaccineList(vaccines);
-    result = civilianRepository.save(result);
-    return result;
-  }
-
-  private List<Vaccine> getVaccineList(CivilianDTO dto) {
-    List<Vaccine> vaccines = new ArrayList<>();
-    for (VaccineDTO vaccineDTO : dto.getVaccineList()) {
-      vaccines.add(vaccineRepository.save(convertVaccine(vaccineDTO)));
+    List<Vaccine> vaccineList = new ArrayList<>();
+    for (VaccineDTO data : dto.getVaccineList()) {
+      vaccineList.add(saveVaccine(data, result));
     }
-    return vaccines;
+    result.setVaccineList(vaccineList);
+    return result;
   }
 
   /**
@@ -94,25 +90,24 @@ public class CivilianServiceImpl implements CivilianService {
    *
    * @param dto
    */
-  public Civilian updateEach(CivilianDTO dto) {
+  public Civilian update(CivilianDTO dto) {
     Civilian civilian = civilianRepository.getById(dto.getId());
     civilian = civilianConverter.toUpdateEntity(dto, civilian);
     storeVaccineStatus(dto, civilian);
-    if (!(civilian.getVaccineList().size() == dto.getVaccineList().size())) {
-      switch (civilian.getVaccineList().size()) {
-        case 0:
-          civilian.getVaccineList().addAll(getVaccineList(dto));
-          break;
-        case 1:
-          civilian.getVaccineList().add(getOneVaccine(dto));
-          break;
-        case 2:
-          break;
-        default:
-          break;
+    civilian = civilianRepository.save(civilian);
+    if (dto.getVaccineList().size() >= civilian.getVaccineList().size()) {
+      List<Vaccine> vaccineList = new ArrayList<>();
+      for (VaccineDTO data : dto.getVaccineList()) {
+        if (data.getId() == null) {
+          vaccineList.add(saveVaccine(data, civilian));
+        } else {
+          Vaccine oldVaccine = vaccineRepository.getById(data.getId());
+          vaccineList.add(updateVaccine(data, oldVaccine));
+        }
       }
+      civilian.setVaccineList(vaccineList);
     }
-    return civilianRepository.save(civilian);
+    return civilian;
   }
 
   /**
@@ -134,14 +129,13 @@ public class CivilianServiceImpl implements CivilianService {
     }
   }
 
-  public Vaccine convertVaccine(VaccineDTO dto) {
-    Vaccine entity = new Vaccine();
-    entity.setDate(dto.getDate());
-    entity.setVaccineName(dto.getVaccineName());
-    return entity;
+  private Vaccine updateVaccine(VaccineDTO dto, Vaccine oldVaccine) {
+    return vaccineRepository.save(vaccineConverter.toUpdateEntity(dto, oldVaccine));
   }
 
-  public Vaccine getOneVaccine(CivilianDTO dto) {
-    return vaccineRepository.save(convertVaccine(dto.getVaccineList().get(1)));
+  private Vaccine saveVaccine(VaccineDTO dto, Civilian civilian) {
+    Vaccine data = vaccineConverter.toEntity(dto);
+    data.setCivilian(civilian);
+    return vaccineRepository.save(data);
   }
 }

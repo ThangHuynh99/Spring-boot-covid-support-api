@@ -8,26 +8,26 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CivilianConverter {
-    @Autowired
-    private ModelMapper mapper;
+  @Autowired private ModelMapper mapper;
 
-    public Civilian toEntity(CivilianDTO dto) {
-        Civilian entity = mapper.map(dto, Civilian.class);
-        entity.setVaccineList(null);
-        return entity;
-    }
+  public Civilian toEntity(CivilianDTO dto) {
+    Civilian entity = mapper.map(dto, Civilian.class);
+    entity.setVaccineList(null);
+    return entity;
+  }
 
-    public CivilianDTO toDTO(Civilian entity) {
-        CivilianDTO dto = mapper.map(entity, CivilianDTO.class);
-        return dto;
-    }
+  public CivilianDTO toDTO(Civilian entity) {
+    CivilianDTO dto = mapper.map(entity, CivilianDTO.class);
+    return dto;
+  }
 
-    public Civilian toUpdateEntity(CivilianDTO dto, Civilian civilian) {
-        Civilian entity = mapper.map(dto, Civilian.class);
-        entity.setUser(civilian.getUser());
-        entity.setCreatedBy(civilian.getCreatedBy());
-        entity.setCreatedDate(civilian.getCreatedDate());
-        entity.setVaccineList(civilian.getVaccineList());
-        return entity;
-    }
+  public Civilian toUpdateEntity(CivilianDTO dto, Civilian civilian) {
+    civilian.setCccd(dto.getCccd());
+    civilian.setBirthDay(dto.getBirthDay());
+    civilian.setName((dto.getName()));
+    civilian.setPhone(dto.getPhone());
+    civilian.setGender(dto.getGender());
+    civilian.setEmail(dto.getEmail());
+    return civilian;
+  }
 }

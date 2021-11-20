@@ -11,7 +11,7 @@ public interface CivilianService {
 
   List<Civilian> findAll();
 
-  ResponseEntity<List<Civilian>> saveOrUpdateCivilians(List<CivilianDTO> civilians);
+  ResponseEntity<Civilian> saveOrUpdateCivilians(CivilianDTO civilian);
 
   void delete(Long id);
 }
