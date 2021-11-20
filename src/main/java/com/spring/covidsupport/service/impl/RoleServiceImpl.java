@@ -1,22 +1,25 @@
 package com.spring.covidsupport.service.impl;
 
+import com.spring.covidsupport.entity.UserEntity;
 import com.spring.covidsupport.repository.RoleRepository;
 import com.spring.covidsupport.service.RoleService;
 import com.spring.covidsupport.entity.Role;
 import com.spring.covidsupport.constant.RoleName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 @Slf4j
 @Transactional
 public class RoleServiceImpl implements RoleService {
-    private final RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public Role findByRoleName(RoleName roleName) {
@@ -29,5 +32,6 @@ public class RoleServiceImpl implements RoleService {
         log.info("Get list roles from database");
         return roleRepository.findAll();
     }
+
 
 }

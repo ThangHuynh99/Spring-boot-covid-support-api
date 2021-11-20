@@ -18,7 +18,7 @@ public class Vaccine {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column private Date date;
+  @Column private String date;
   @Column private String vaccineName;
 
   @JsonBackReference

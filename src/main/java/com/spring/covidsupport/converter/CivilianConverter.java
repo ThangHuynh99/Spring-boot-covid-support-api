@@ -13,6 +13,7 @@ public class CivilianConverter {
 
     public Civilian toEntity(CivilianDTO dto) {
         Civilian entity = mapper.map(dto, Civilian.class);
+        entity.setVaccineList(null);
         return entity;
     }
 

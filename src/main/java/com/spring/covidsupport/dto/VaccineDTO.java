@@ -10,6 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 public class VaccineDTO extends Abstract {
-  private Date date;
+  private String date;
   private String vaccineName;
 }

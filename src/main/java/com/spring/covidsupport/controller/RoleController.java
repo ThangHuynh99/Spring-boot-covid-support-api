@@ -1,6 +1,7 @@
 package com.spring.covidsupport.controller;
 
 import com.spring.covidsupport.entity.Role;
+import com.spring.covidsupport.entity.UserEntity;
 import com.spring.covidsupport.service.RoleService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/roles")
+@RequestMapping(value = "/api/v1/roles")
 public class RoleController {
-  @Autowired private static RoleService roleService;
+  @Autowired private RoleService roleService;
 
   @ApiOperation(value = "View list role", response = Role.class)
   @ApiResponses(
@@ -26,7 +27,7 @@ public class RoleController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("/")
+  @GetMapping()
   public ResponseEntity<List<Role>> findAll() {
     return ResponseEntity.ok().body(roleService.findAll());
   }
