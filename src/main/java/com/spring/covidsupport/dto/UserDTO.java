@@ -22,4 +22,5 @@ public class UserDTO extends Abstract{
     private String gender;
     private String email;
     private Date birthDay;
+    private String district;
 }

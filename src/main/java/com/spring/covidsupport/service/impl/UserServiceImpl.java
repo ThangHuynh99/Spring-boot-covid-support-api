@@ -2,6 +2,7 @@ package com.spring.covidsupport.service.impl;
 
 import com.spring.covidsupport.constant.RoleName;
 import com.spring.covidsupport.converter.UserConverter;
+import com.spring.covidsupport.dto.LocationFiltterRequest;
 import com.spring.covidsupport.dto.UserDTO;
 import com.spring.covidsupport.entity.Role;
 import com.spring.covidsupport.entity.UserEntity;
@@ -25,7 +26,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -64,19 +64,23 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserEntity save(UserEntity user) {
+  public ResponseEntity<?> save(UserEntity user) {
     log.info("Insert new user to database");
+    if (userRepository.existsByUserName(user.getUserName())) {
+      return ResponseEntity.internalServerError().body(new MessageResponse("Username is exist!"));
+    }
     user.setPassWord(passwordEncoder.encode(user.getPassWord()));
     List<Role> role = Arrays.asList(roleService.findByRoleName(RoleName.ROLE_USER));
     user.setRoles(role);
-    return userRepository.save(user);
+    return ResponseEntity.ok(userRepository.save(user));
   }
 
   @Override
-  public List<UserEntity> findAll(Pageable page) {
+  public List<UserEntity> findAllByLocation(Pageable page, LocationFiltterRequest filter) {
     log.info("Select all users from database");
     // List<User> userEntities = em.createQuery("select u from User u", User.class).getResultList();
-    return userRepository.findAll(page).getContent();
+    return userRepository.findByWardNameAndGroupNumberAndDistrict(
+        filter.getWardName(), filter.getGroupNumber(), filter.getDistrict(), page);
   }
 
   @Override
@@ -96,17 +100,17 @@ public class UserServiceImpl implements UserService {
   @Override
   public ResponseEntity<?> update(UserDTO userDTO) {
     UserEntity userEntity = userRepository.getById(userDTO.getId());
-    if(userEntity == null) {
+    if (userEntity == null) {
       return ResponseEntity.badRequest().body(new MessageResponse("User does not exist"));
     }
-     userEntity = userRepository.save(userConverter.toEntity(userDTO, userEntity));
+    userEntity = userRepository.save(userConverter.toEntity(userDTO, userEntity));
     return ResponseEntity.ok(userEntity);
   }
 
   @Override
   public ResponseEntity<?> updateAdmin(UserDTO userDTO) {
     UserEntity userEntity = userRepository.getById(userDTO.getId());
-    if(userEntity == null) {
+    if (userEntity == null) {
       return ResponseEntity.badRequest().body(new MessageResponse("User does not exist"));
     }
 
@@ -117,7 +121,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public ResponseEntity<?> changePassword(Long id, String newPassword) {
     UserEntity userEntity = userRepository.getById(id);
-    if(userEntity == null) {
+    if (userEntity == null) {
       return ResponseEntity.badRequest().body(new MessageResponse("User does not exist"));
     }
 

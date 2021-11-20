@@ -41,9 +41,9 @@ public class AuthenticationController {
                     @ApiResponse(code = 404, message = "Bad request")
             })
     @PostMapping(value = "/signup", consumes={"application/json"})
-    public ResponseEntity<UserEntity> register(@RequestBody RegisterDTO request) {
+    public ResponseEntity<?> register(@RequestBody RegisterDTO request) {
         UserEntity user = toRegister(request);
-        return ResponseEntity.ok().body(userService.save(user));
+        return userService.save(user);
     }
 
     private UserEntity toRegister(RegisterDTO request) {
@@ -52,6 +52,7 @@ public class AuthenticationController {
         userEntity.setPassWord(request.getPassWord());
         userEntity.setGroupNumber(request.getGroupNumber());
         userEntity.setWardName(request.getWardName());
+        userEntity.setDistrict(request.getDistrict());
         return userEntity;
     }
 }

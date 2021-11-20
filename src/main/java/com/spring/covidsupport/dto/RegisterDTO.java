@@ -8,4 +8,5 @@ public class RegisterDTO {
     private String passWord;
     private Long groupNumber;
     private String wardName;
+    private String district;
 }

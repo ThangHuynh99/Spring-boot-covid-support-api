@@ -25,4 +25,9 @@ public class Vaccine {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "civilian_id")
   private Civilian civilian;
+
+  @JsonBackReference
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id")
+  private UserEntity userE;
 }

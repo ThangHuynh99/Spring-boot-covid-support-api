@@ -17,6 +17,7 @@ public class CivilianDTO extends Abstract{
     private String phone;
     private String email;
     private Date birthDay;
+    private String cccd;
     private Long familyId;
     private List<VaccineDTO> vaccineList;
 }
