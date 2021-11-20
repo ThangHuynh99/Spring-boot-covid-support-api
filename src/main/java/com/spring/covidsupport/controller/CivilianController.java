@@ -52,9 +52,8 @@ public class CivilianController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @PostMapping("/family/{civilians}")
-  public ResponseEntity<List<Civilian>> saveCivilians(
-      @PathVariable("civilians") List<CivilianDTO> civilians) {
+  @PostMapping("/family")
+  public ResponseEntity<List<Civilian>> saveCivilians(@RequestBody List<CivilianDTO> civilians) {
     return civilianService.saveOrUpdateCivilians(civilians);
   }
 
@@ -66,9 +65,8 @@ public class CivilianController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @PutMapping("/family/{civilians}")
-  public ResponseEntity<List<Civilian>> updateCivilians(
-      @PathVariable("civilians") List<CivilianDTO> civilians) {
+  @PutMapping("/family")
+  public ResponseEntity<List<Civilian>> updateCivilians(@RequestBody List<CivilianDTO> civilians) {
     return civilianService.saveOrUpdateCivilians(civilians);
   }
 
