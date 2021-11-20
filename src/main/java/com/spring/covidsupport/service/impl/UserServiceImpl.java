@@ -130,11 +130,11 @@ public class UserServiceImpl implements UserService {
     return ResponseEntity.ok().build();
   }
 
-  @Override
-  public ResponseEntity<List<UserEntity>> findAllByRoleUser(Pageable pageable) {
-    Role role = roleService.findByRoleName(RoleName.ROLE_USER);
-    List<Role> roles = Arrays.asList(role);
-    List<UserEntity> results = userRepository.findAllByRoles(pageable, roles);
-    return ResponseEntity.ok(results);
-  }
+//  @Override
+//  public ResponseEntity<List<UserEntity>> findAllByRoleUser(Pageable pageable) {
+//    Role role = roleService.findByRoleName(RoleName.ROLE_USER);
+//    List<Role> roles = Arrays.asList(role);
+//    List<UserEntity> results = userRepository.findAllByRoles(pageable, roles);
+//    return ResponseEntity.ok(results);
+//  }
 }

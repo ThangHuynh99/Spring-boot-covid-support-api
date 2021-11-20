@@ -50,21 +50,21 @@ public class UserController {
    * @param page
    * @return
    */
-  @ApiOperation(value = "View list users by ROLE_USER ward, district and groupNumber", response = UserEntity.class)
-  @ApiResponses(
-          value = {
-                  @ApiResponse(code = 200, message = "Success"),
-                  @ApiResponse(code = 401, message = "Unauthorization"),
-                  @ApiResponse(code = 403, message = "Access denied"),
-                  @ApiResponse(code = 404, message = "Bad request")
-          })
-  @GetMapping("/RoleUser")
-  public ResponseEntity<List<UserEntity>> findAllByRoleUser(@RequestBody LocationFiltterRequest filter,
-          @RequestParam(value = "page", defaultValue = "1", required = false) int page) {
-    Pageable pageable = PageRequest.of(page - 1, 20);
-
-    return userService.findAllByRoleUser(pageable);
-  }
+//  @ApiOperation(value = "View list users by ROLE_USER ward, district and groupNumber", response = UserEntity.class)
+//  @ApiResponses(
+//          value = {
+//                  @ApiResponse(code = 200, message = "Success"),
+//                  @ApiResponse(code = 401, message = "Unauthorization"),
+//                  @ApiResponse(code = 403, message = "Access denied"),
+//                  @ApiResponse(code = 404, message = "Bad request")
+//          })
+//  @GetMapping("/RoleUser")
+//  public ResponseEntity<List<UserEntity>> findAllByRoleUser(@RequestBody LocationFiltterRequest filter,
+//          @RequestParam(value = "page", defaultValue = "1", required = false) int page) {
+//    Pageable pageable = PageRequest.of(page - 1, 20);
+//
+//    return userService.findAllByRoleUser(pageable);
+//  }
 
   /**
    * this api use for get user by name

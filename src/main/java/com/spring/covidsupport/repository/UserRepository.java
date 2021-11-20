@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
   boolean existsByUserName(String userName);
 
-  List<UserEntity> findAllByRoles(Pageable pageable, List<Role> roles);
+//  List<UserEntity> findAllByRoles(Pageable pageable, List<Role> roles);
 
   List<UserEntity> findByWardNameAndGroupNumberAndDistrict(
       String wardName, int groupNumber, String district, Pageable pageable);

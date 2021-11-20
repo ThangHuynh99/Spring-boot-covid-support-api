@@ -53,6 +53,7 @@ public class MyUserDetailsService implements UserDetailsService {
     myUser.setGroupNumber(userEntity.getGroupNumber());
     myUser.setWardName(userEntity.getWardName());
     myUser.setRoles(toRoleDTO(userEntity.getRoles()));
+    myUser.setDistrict(userEntity.getDistrict());
     return myUser;
   }
 

@@ -9,6 +9,7 @@ import java.util.List;
 public class MyUser extends User {
   private Long id;
   private String wardName;
+  private String district;
   private Long groupNumber;
   private List<RoleDTO> roles;
 
@@ -47,5 +48,13 @@ public class MyUser extends User {
 
   public void setRoles(List<RoleDTO> roles) {
     this.roles = roles;
+  }
+
+  public String getDistrict() {
+    return district;
+  }
+
+  public void setDistrict(String district) {
+    this.district = district;
   }
 }

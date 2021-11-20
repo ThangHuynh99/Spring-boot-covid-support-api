@@ -37,11 +37,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     MyUser myUser = userDetailsService.loadResponse(loginRequest.getUserName());
     return ResponseEntity.ok(
         new JwtResponse(
-            jwt,
-            myUser.getId(),
-            myUser.getUsername(),
-            myUser.getWardName(),
-            myUser.getGroupNumber(),
-            myUser.getRoles()));
+                jwt,
+                myUser.getId(),
+                myUser.getUsername(),
+                myUser.getWardName(),
+                myUser.getDistrict(),
+                myUser.getGroupNumber(),
+                myUser.getRoles())
+        );
   }
 }
