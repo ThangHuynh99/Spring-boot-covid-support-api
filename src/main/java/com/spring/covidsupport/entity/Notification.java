@@ -15,9 +15,11 @@ import javax.persistence.Table;
 @AllArgsConstructor
 public class Notification extends Base{
     private Long orderId;
-    private int read;
+    private Integer readNoti;
     private String ownerName;
     private String code;
+
+
     private static Notification instance;
 
     public static Notification newInstance() {

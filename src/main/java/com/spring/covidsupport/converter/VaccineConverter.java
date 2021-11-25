@@ -21,9 +21,8 @@ public class VaccineConverter {
   }
 
   public Vaccine toUpdateEntity(VaccineDTO dto, Vaccine oldEntity) {
-    Vaccine entity = mapper.map(dto, Vaccine.class);
-    entity.setDate(dto.getDate());
-    entity.setVaccineName(dto.getVaccineName());
-    return entity;
+    oldEntity.setDate(dto.getDate());
+    oldEntity.setVaccineName(dto.getVaccineName());
+    return oldEntity;
   }
 }

@@ -3,12 +3,16 @@ package com.spring.covidsupport.service.impl;
 import com.spring.covidsupport.constant.OrderConstant;
 import com.spring.covidsupport.constant.ReadConstant;
 import com.spring.covidsupport.converter.CartConverter;
+import com.spring.covidsupport.converter.ProductOrderConverter;
 import com.spring.covidsupport.dto.CartDTO;
 import com.spring.covidsupport.dto.LocationFiltterRequest;
+import com.spring.covidsupport.dto.ProductOrderDTO;
 import com.spring.covidsupport.entity.Cart;
 import com.spring.covidsupport.entity.Notification;
+import com.spring.covidsupport.entity.ProductOrder;
 import com.spring.covidsupport.repository.CartRepository;
 import com.spring.covidsupport.repository.NotificationRepository;
+import com.spring.covidsupport.repository.ProductOrderRepository;
 import com.spring.covidsupport.response.MessageResponse;
 import com.spring.covidsupport.service.CartService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -17,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +32,11 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private NotificationRepository notificationRepository;
     @Autowired
+    private ProductOrderRepository productOrderRepository;
+    @Autowired
     private CartConverter cartConverter;
+    @Autowired
+    private ProductOrderConverter productOrderConverter;
 
 
     @Override
@@ -36,7 +45,14 @@ public class CartServiceImpl implements CartService {
         cart.setStatus(OrderConstant.IN_PROGRESS);
         cart.setCartCode(generateCode());
         cart = cartRepository.save(cart);
+        List<ProductOrder> productOrderResult = new ArrayList<>();
+        for(ProductOrderDTO data: dto.getListProduct()) {
+            ProductOrder entity = productOrderConverter.toEntity(data);
+            entity.setCart(cart);
+            productOrderResult.add(productOrderRepository.save(entity));
+        }
         saveNotification(cart);
+        cart.setProductOrders(productOrderResult);
         return cart;
     }
 
@@ -78,7 +94,7 @@ public class CartServiceImpl implements CartService {
         notification.setCode(cart.getCartCode());
         notification.setOrderId(cart.getId());
         notification.setOwnerName(cart.getOwnerName());
-        notification.setRead(ReadConstant.UNREAD);
+        notification.setReadNoti(ReadConstant.UNREAD) ;
         notificationRepository.save(notification);
     }
 }
