@@ -18,7 +18,11 @@ import java.util.List;
 public class CartController {
   @Autowired private CartService cartService;
 
-  @ApiOperation(value = "Save new cart", response = Cart.class)
+  @ApiOperation(
+      value =
+          "Save new cart, when save cart then product in listProduct don't have id and"
+              + " productId is id of product",
+      response = Cart.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
