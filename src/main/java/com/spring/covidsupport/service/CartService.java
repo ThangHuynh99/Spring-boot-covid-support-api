@@ -13,4 +13,5 @@ public interface CartService {
     Cart getOne(long id);
     List<Cart> getByUser(long id);
     List<Cart> getByDistination(LocationFiltterRequest location);
+    List<Cart> getByUserAndStatus(long userId, int status);
 }

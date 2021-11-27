@@ -72,9 +72,22 @@ public class CartController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("/user/{idUser}")
-  public ResponseEntity<List<Cart>> getByUser(
-      @PathVariable("id") Long id, @PathVariable("idUser") int status) {
-    return ResponseEntity.ok(cartService.getByUser(id));
+  public ResponseEntity<List<Cart>> getByUser(@PathVariable("idUser") Long idUser) {
+    return ResponseEntity.ok(cartService.getByUser(idUser));
+  }
+
+  @ApiOperation(value = "get all cart by userId and status cart", response = Cart.class)
+  @ApiResponses(
+      value = {
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 401, message = "Unauthorization"),
+        @ApiResponse(code = 403, message = "Access denied"),
+        @ApiResponse(code = 404, message = "Bad request")
+      })
+  @GetMapping("/user/{idUser}/{status}")
+  public ResponseEntity<List<Cart>> getByUserAndStatus(
+      @PathVariable("idUser") Long idUser, @PathVariable("status") int status) {
+    return ResponseEntity.ok(cartService.getByUserAndStatus(idUser, status));
   }
 
   @ApiOperation(

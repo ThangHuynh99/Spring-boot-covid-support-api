@@ -12,4 +12,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
   List<Cart> findByWardNameAndGroupNumberAndDistrict(
       String wardName, int groupNumber, String District);
+
+  @Query(value = "select * from cart where user_id = ?1 and status =?2", nativeQuery = true)
+  List<Cart> findByUserCartAndStatus(long id, int status);
 }

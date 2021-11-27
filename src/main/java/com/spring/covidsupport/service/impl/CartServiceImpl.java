@@ -88,12 +88,16 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findByWardNameAndGroupNumberAndDistrict(location.getWardName(), location.getGroupNumber(), location.getDistrict());
     }
 
+    @Override
+    public List<Cart> getByUserAndStatus(long userId, int status) {
+        return cartRepository.findByUserCartAndStatus(userId, status);
+    }
+
     private String generateCode() {
         int length = 15;
         boolean useLetters = true;
         boolean useNumbers = true;
-        String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
-        return generatedString;
+        return RandomStringUtils.random(length, useLetters, useNumbers);
     }
 
     private void saveNotification(Cart cart) {
