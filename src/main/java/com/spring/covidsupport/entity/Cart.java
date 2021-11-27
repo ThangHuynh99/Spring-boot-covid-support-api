@@ -26,7 +26,7 @@ public class Cart extends Base {
   @Column
   private Long quantityProduct;
   @Column
-  private String cartNumber;
+  private String phoneNumber;
   @Column
   private String wardName;
   @Column

@@ -8,8 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductOrderDTO extends Abstract{
+    private Long id;
     private String name;
     private Long quantity;
     private String price;
     private String totalPrice;
+    private Long productId;
 }

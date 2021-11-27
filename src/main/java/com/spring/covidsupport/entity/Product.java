@@ -32,6 +32,8 @@ public class Product extends Base {
   private String description;
   @Column
   private int groupNumber;
+  @Column
+  private String unit;
 
   @JsonManagedReference
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

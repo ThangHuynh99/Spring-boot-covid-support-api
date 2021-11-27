@@ -21,6 +21,8 @@ public class ProductOrder extends Base{
     private String price;
     @Column
     private String totalPrice;
+    @Column
+    private Long productId;
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)

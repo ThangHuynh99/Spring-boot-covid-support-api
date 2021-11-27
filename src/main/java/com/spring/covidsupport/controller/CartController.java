@@ -18,7 +18,7 @@ import java.util.List;
 public class CartController {
   @Autowired private CartService cartService;
 
-  @ApiOperation(value = "Save cart", response = Cart.class)
+  @ApiOperation(value = "Save new cart", response = Cart.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
@@ -39,7 +39,7 @@ public class CartController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @PostMapping("/{id}/{status}")
+  @PutMapping("/{id}/{status}")
   public ResponseEntity<?> updateCartStatus(
       @PathVariable("id") Long id, @PathVariable("status") int status) {
     return cartService.updateCartStatus(id, status);

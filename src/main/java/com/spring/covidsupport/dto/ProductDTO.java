@@ -19,4 +19,5 @@ public class ProductDTO extends Abstract{
     private CategoryDTO category;
     private String catalogType;
     private String wardName;
+    private String unit;
 }

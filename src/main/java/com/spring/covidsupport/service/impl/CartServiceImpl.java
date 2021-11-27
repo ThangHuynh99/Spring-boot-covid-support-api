@@ -9,10 +9,12 @@ import com.spring.covidsupport.dto.LocationFiltterRequest;
 import com.spring.covidsupport.dto.ProductOrderDTO;
 import com.spring.covidsupport.entity.Cart;
 import com.spring.covidsupport.entity.Notification;
+import com.spring.covidsupport.entity.Product;
 import com.spring.covidsupport.entity.ProductOrder;
 import com.spring.covidsupport.repository.CartRepository;
 import com.spring.covidsupport.repository.NotificationRepository;
 import com.spring.covidsupport.repository.ProductOrderRepository;
+import com.spring.covidsupport.repository.ProductRepository;
 import com.spring.covidsupport.response.MessageResponse;
 import com.spring.covidsupport.service.CartService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -34,6 +36,8 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ProductOrderRepository productOrderRepository;
     @Autowired
+    private ProductRepository productRepository;
+    @Autowired
     private CartConverter cartConverter;
     @Autowired
     private ProductOrderConverter productOrderConverter;
@@ -52,6 +56,7 @@ public class CartServiceImpl implements CartService {
             productOrderResult.add(productOrderRepository.save(entity));
         }
         saveNotification(cart);
+        downQuantityProduct(dto);
         cart.setProductOrders(productOrderResult);
         return cart;
     }
@@ -63,6 +68,9 @@ public class CartServiceImpl implements CartService {
             return ResponseEntity.internalServerError().body(new MessageResponse("Cart not found"));
         }
         cart.setStatus(status);
+        if (status == OrderConstant.CANCEL) {
+            upQuantityProduct(cart.getProductOrders());
+        }
         return ResponseEntity.ok().body(cartRepository.save(cart));
     }
 
@@ -96,5 +104,31 @@ public class CartServiceImpl implements CartService {
         notification.setOwnerName(cart.getOwnerName());
         notification.setReadNoti(ReadConstant.UNREAD) ;
         notificationRepository.save(notification);
+    }
+
+    /**
+     * this function use when user confirm order product
+     * update quatity for product
+     * @param cartDTO
+     */
+    private void downQuantityProduct(CartDTO cartDTO) {
+        for (ProductOrderDTO data: cartDTO.getListProduct()) {
+            Product product = productRepository.getById(data.getProductId());
+            product.setQuantity(product.getQuantity() - data.getQuantity());
+            productRepository.save(product);
+        }
+    }
+
+    /**
+     * this function use when user cancel order product
+     * update quatity for product
+     * @param productOrders
+     */
+    private void upQuantityProduct(List<ProductOrder> productOrders) {
+        for (ProductOrder data: productOrders) {
+            Product product = productRepository.getById(data.getProductId());
+            product.setQuantity(product.getQuantity() + data.getQuantity());
+            productRepository.save(product);
+        }
     }
 }
