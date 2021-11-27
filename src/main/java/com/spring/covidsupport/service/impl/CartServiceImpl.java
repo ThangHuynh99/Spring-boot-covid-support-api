@@ -7,14 +7,8 @@ import com.spring.covidsupport.converter.ProductOrderConverter;
 import com.spring.covidsupport.dto.CartDTO;
 import com.spring.covidsupport.dto.LocationFiltterRequest;
 import com.spring.covidsupport.dto.ProductOrderDTO;
-import com.spring.covidsupport.entity.Cart;
-import com.spring.covidsupport.entity.Notification;
-import com.spring.covidsupport.entity.Product;
-import com.spring.covidsupport.entity.ProductOrder;
-import com.spring.covidsupport.repository.CartRepository;
-import com.spring.covidsupport.repository.NotificationRepository;
-import com.spring.covidsupport.repository.ProductOrderRepository;
-import com.spring.covidsupport.repository.ProductRepository;
+import com.spring.covidsupport.entity.*;
+import com.spring.covidsupport.repository.*;
 import com.spring.covidsupport.response.MessageResponse;
 import com.spring.covidsupport.service.CartService;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -40,14 +34,18 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartConverter cartConverter;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private ProductOrderConverter productOrderConverter;
 
 
     @Override
     public Cart save(CartDTO dto) {
         Cart cart = cartConverter.toEntity(dto);
+        UserEntity userEntity = userRepository.getById(dto.getUserId());
         cart.setStatus(OrderConstant.IN_PROGRESS);
         cart.setCartCode(generateCode());
+        cart.setUserCart(userEntity);
         cart = cartRepository.save(cart);
         List<ProductOrder> productOrderResult = new ArrayList<>();
         for(ProductOrderDTO data: dto.getListProduct()) {
@@ -71,6 +69,7 @@ public class CartServiceImpl implements CartService {
         if (status == OrderConstant.CANCEL) {
             upQuantityProduct(cart.getProductOrders());
         }
+        saveNotification(cart);
         return ResponseEntity.ok().body(cartRepository.save(cart));
     }
 
@@ -103,6 +102,7 @@ public class CartServiceImpl implements CartService {
         notification.setOrderId(cart.getId());
         notification.setOwnerName(cart.getOwnerName());
         notification.setReadNoti(ReadConstant.UNREAD) ;
+        notification.setCartStatus(cart.getStatus());
         notificationRepository.save(notification);
     }
 

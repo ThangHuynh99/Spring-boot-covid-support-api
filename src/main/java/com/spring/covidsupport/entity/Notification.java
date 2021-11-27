@@ -18,6 +18,7 @@ public class Notification extends Base{
     private Integer readNoti;
     private String ownerName;
     private String code;
+    private int cartStatus;
 
 
     private static Notification instance;
