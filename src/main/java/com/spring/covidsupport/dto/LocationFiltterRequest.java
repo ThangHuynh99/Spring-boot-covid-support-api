@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class LocationFiltterRequest {
     private String district;
-    private int groupNumber;
+    private Long groupNumber;
     private String wardName;
 }

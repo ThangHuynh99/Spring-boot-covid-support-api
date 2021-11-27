@@ -20,5 +20,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
   boolean existsByUserName(String userName);
 
   List<UserEntity> findByWardNameAndGroupNumberAndDistrict(
-      String wardName, int groupNumber, String district, Pageable pageable);
+      String wardName, long groupNumber, String district, Pageable pageable);
 }
