@@ -11,7 +11,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
   List<Cart> findByUserCart(long id);
 
   List<Cart> findByWardNameAndGroupNumberAndDistrict(
-      String wardName, long groupNumber, String District);
+      String wardName, Long groupNumber, String District);
 
   @Query(value = "select * from cart where user_id = ?1 and status =?2", nativeQuery = true)
   List<Cart> findByUserCartAndStatus(long id, int status);

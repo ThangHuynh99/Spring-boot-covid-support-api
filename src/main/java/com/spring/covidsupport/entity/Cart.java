@@ -30,7 +30,7 @@ public class Cart extends Base {
   @Column
   private String wardName;
   @Column
-  private int groupNumber;
+  private Long groupNumber;
   @Column
   private String district;
 
