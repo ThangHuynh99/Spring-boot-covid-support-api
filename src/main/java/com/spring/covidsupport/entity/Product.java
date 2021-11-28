@@ -31,6 +31,10 @@ public class Product extends Base {
   @Column
   private String description;
   @Column
+  private String district;
+  @Column
+  private String ward;
+  @Column
   private int groupNumber;
   @Column
   private String unit;

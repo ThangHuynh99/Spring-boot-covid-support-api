@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<UserEntity> findAllByLocation(Pageable page, LocationFiltterRequest filter) {
-    log.info("Select all users from database");
+    log.info("Select all users from database by location");
     // List<User> userEntities = em.createQuery("select u from User u", User.class).getResultList();
     return userRepository.findByWardNameAndGroupNumberAndDistrict(
         filter.getWardName(), filter.getGroupNumber(), filter.getDistrict(), page);

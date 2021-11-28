@@ -9,4 +9,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findByName(String name);
     List<Product> findByGroupNumber(int group);
     List<Product> findByGroupNumberAndStatus(int group, boolean status);
+    List<Product> findByStatusAndDistrictAndWard(boolean status, String district, String ward);
 }

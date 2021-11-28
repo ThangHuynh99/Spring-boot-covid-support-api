@@ -1,5 +1,6 @@
 package com.spring.covidsupport.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -57,6 +58,7 @@ public class UserEntity extends Base {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Civilian> civilians;
 
+  @JsonIgnore
   @JsonManagedReference
   @OneToMany(mappedBy = "userCart", cascade = CascadeType.ALL)
   private List<Cart> cartList;

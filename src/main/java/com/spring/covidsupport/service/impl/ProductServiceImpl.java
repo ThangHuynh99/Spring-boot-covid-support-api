@@ -99,6 +99,11 @@ public class ProductServiceImpl implements ProductService {
     return productRepository.findByGroupNumberAndStatus(groupNum, status);
   }
 
+  @Override
+  public List<Product> findByStatusAndDistrictAndWard(String district, String ward) {
+    return productRepository.findByStatusAndDistrictAndWard(ProductConstant.AVAILABLE, district, ward);
+  }
+
   private Category checkCatagory(String catagoryCode) {
     if (StringUtils.isBlank(catagoryCode)) {
       return null;
