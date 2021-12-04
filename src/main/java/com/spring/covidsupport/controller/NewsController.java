@@ -59,7 +59,7 @@ public class NewsController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("")
-  public ResponseEntity<List<News>> findAll(@PathVariable("id") Long id) {
+  public ResponseEntity<List<News>> findAll() {
     return ResponseEntity.ok(newsService.findAll());
   }
 
