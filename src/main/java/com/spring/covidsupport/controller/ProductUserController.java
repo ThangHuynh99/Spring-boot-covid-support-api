@@ -22,7 +22,7 @@ import java.util.List;
 public class ProductUserController {
   @Autowired private ProductService productService;
 
-  @ApiOperation(value = "find products by groupNumber", response = Product.class)
+  @ApiOperation(value = "find products by district, wardName and status = true", response = Product.class)
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
