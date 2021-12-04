@@ -38,7 +38,7 @@ public class NewsController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("/{id}")
+  @GetMapping("{id}")
   public ResponseEntity<News> findOne(
       @ApiParam(
               name = "id",
@@ -76,7 +76,7 @@ public class NewsController {
     return newsService.update(news);
   }
 
-  @ApiOperation(value = "delete news", response = News.class)
+  @ApiOperation(value = "delete news")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
