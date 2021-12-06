@@ -7,12 +7,16 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Optional;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
-class WebConfig {
+@EnableWebMvc
+class WebConfig implements WebMvcConfigurer{
 
     @Bean
     public ModelMapper mapper() {
@@ -33,5 +37,10 @@ class WebConfig {
             }
             return Optional.of(authentication.getName());
         }
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 }
