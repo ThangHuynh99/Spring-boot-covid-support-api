@@ -19,6 +19,7 @@ public class CartDTO extends Abstract{
     private String district;
     private String wardName;
     private int groupNumber;
+    private String address;
     private Long userId;
     private List<ProductOrderDTO> listProduct;
 }

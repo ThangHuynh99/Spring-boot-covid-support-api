@@ -33,6 +33,8 @@ public class Cart extends Base {
   private Long groupNumber;
   @Column
   private String district;
+  @Column
+  private String address;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)

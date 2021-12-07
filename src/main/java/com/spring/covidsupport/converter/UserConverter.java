@@ -29,6 +29,12 @@ public class UserConverter {
         userEntity.setName((dto.getName()));
         userEntity.setPhone(dto.getPhone());
         userEntity.setEmail(dto.getEmail());
+        userEntity.setDistrict(dto.getDistrict());
+        userEntity.setWardName(dto.getWardName());
+        userEntity.setAddress(dto.getAddress());
+        userEntity.setGender(dto.getGender());
+        userEntity.setBirthDay(dto.getBirthDay());
+        userEntity.setGroupNumber(dto.getGroupNumber());
     return userEntity;
     }
 
