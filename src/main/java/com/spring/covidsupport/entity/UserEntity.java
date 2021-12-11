@@ -1,6 +1,6 @@
 package com.spring.covidsupport.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "cartList"})
 public class UserEntity extends Base {
   @Column
   private String familyName;
@@ -58,7 +58,6 @@ public class UserEntity extends Base {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
   private List<Civilian> civilians;
 
-  @JsonIgnore
   @JsonManagedReference
   @OneToMany(mappedBy = "userCart", cascade = CascadeType.ALL)
   private List<Cart> cartList;

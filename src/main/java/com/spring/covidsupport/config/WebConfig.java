@@ -16,31 +16,27 @@ import java.util.Optional;
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 @EnableWebMvc
-class WebConfig implements WebMvcConfigurer{
+class WebConfig implements WebMvcConfigurer {
+  private final long MAX_AGE_SECS = 3600;
 
-    @Bean
-    public ModelMapper mapper() {
-        return new ModelMapper();
-    }
+  @Bean
+  public ModelMapper mapper() {
+    return new ModelMapper();
+  }
 
-    @Bean
-    public AuditorAware<String> auditorProvider() {
-        return new AuditorAwareImpl();
-    }
+  @Bean
+  public AuditorAware<String> auditorProvider() {
+    return new AuditorAwareImpl();
+  }
 
-    public static class AuditorAwareImpl implements AuditorAware<String> {
-        @Override
-        public Optional<String> getCurrentAuditor() {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if(authentication == null || !authentication.isAuthenticated()) {
-                return null;
-            }
-            return Optional.of(authentication.getName());
-        }
-    }
-
+  public static class AuditorAwareImpl implements AuditorAware<String> {
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+    public Optional<String> getCurrentAuditor() {
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      if (authentication == null || !authentication.isAuthenticated()) {
+        return null;
+      }
+      return Optional.of(authentication.getName());
     }
+  }
 }

@@ -17,8 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(
-    value = "/api/v1/product",
-    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    value = "/api/v1/product")
 public class ProductUserController {
   @Autowired private ProductService productService;
 
