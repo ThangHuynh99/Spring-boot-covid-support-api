@@ -4,4 +4,5 @@ public class OrderConstant {
     public static final int IN_PROGRESS = 0;
     public static final int DONE = 1;
     public static final int CANCEL = 2;
+    public static final int PICKED = 3;
 }

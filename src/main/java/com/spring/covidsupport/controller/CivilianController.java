@@ -78,7 +78,7 @@ public class CivilianController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @PutMapping("/family/{civilianId}")
+  @DeleteMapping("/family/{civilianId}")
   public ResponseEntity deleteCivilian(@PathVariable("civilianId") Long id) {
     civilianService.delete(id);
     return ResponseEntity.ok().build();
