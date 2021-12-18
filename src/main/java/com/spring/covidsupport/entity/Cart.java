@@ -38,7 +38,7 @@ public class Cart extends Base {
 
   @JsonManagedReference
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-  private List<ProductOrder> productOrders;
+  private List<ProductOrder> listProduct;
 
   @JsonBackReference
   @ManyToOne(cascade = CascadeType.ALL)

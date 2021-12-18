@@ -55,7 +55,7 @@ public class CartServiceImpl implements CartService {
         }
         saveNotification(cart);
         downQuantityProduct(dto);
-        cart.setProductOrders(productOrderResult);
+        cart.setListProduct(productOrderResult);
         return cart;
     }
 
@@ -67,7 +67,7 @@ public class CartServiceImpl implements CartService {
         }
         cart.setStatus(status);
         if (status == OrderConstant.CANCEL) {
-            upQuantityProduct(cart.getProductOrders());
+            upQuantityProduct(cart.getListProduct());
         }
         saveNotification(cart);
         return ResponseEntity.ok().body(cartRepository.save(cart));
