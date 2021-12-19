@@ -44,7 +44,7 @@ public class CivilianController {
     return ResponseEntity.ok(civilianService.findAll());
   }
 
-  @ApiOperation(value = "insert list Civilians to family")
+  @ApiOperation(value = "insert Civilian to family")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),
