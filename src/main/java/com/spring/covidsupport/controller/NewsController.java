@@ -1,5 +1,6 @@
 package com.spring.covidsupport.controller;
 
+import com.spring.covidsupport.dto.LocationFiltterRequest;
 import com.spring.covidsupport.entity.News;
 import com.spring.covidsupport.service.NewsService;
 import io.swagger.annotations.ApiOperation;
@@ -59,8 +60,8 @@ public class NewsController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("")
-  public ResponseEntity<List<News>> findAll() {
-    return ResponseEntity.ok(newsService.findAll());
+  public ResponseEntity<List<News>> findAll(@RequestBody LocationFiltterRequest locationFiltterRequest) {
+    return ResponseEntity.ok(newsService.findAllByLocation(locationFiltterRequest));
   }
 
   @ApiOperation(value = "update news", response = News.class)

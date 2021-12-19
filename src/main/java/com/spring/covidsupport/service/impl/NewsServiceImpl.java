@@ -1,5 +1,6 @@
 package com.spring.covidsupport.service.impl;
 
+import com.spring.covidsupport.dto.LocationFiltterRequest;
 import com.spring.covidsupport.entity.News;
 import com.spring.covidsupport.repository.NewsRepository;
 import com.spring.covidsupport.response.MessageResponse;
@@ -26,8 +27,12 @@ public class NewsServiceImpl implements NewsService {
   }
 
   @Override
-  public List<News> findAll() {
-    return newsRepository.findAll(Sort.by("modifiedDate").descending());
+  public List<News> findAllByLocation(LocationFiltterRequest locationFiltterRequest) {
+    return newsRepository.findAllByDistrictAndWardNameAndGroupNumber(
+        locationFiltterRequest.getDistrict(),
+        locationFiltterRequest.getWardName(),
+        locationFiltterRequest.getGroupNumber(),
+        Sort.by("modifiedDate").descending());
   }
 
   @Override

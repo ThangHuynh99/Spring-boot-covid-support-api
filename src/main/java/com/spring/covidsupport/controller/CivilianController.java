@@ -57,7 +57,7 @@ public class CivilianController {
     return civilianService.saveOrUpdateCivilians(civilian);
   }
 
-  @ApiOperation(value = "update list Civilians")
+  @ApiOperation(value = "update Civilians")
   @ApiResponses(
       value = {
         @ApiResponse(code = 200, message = "Success"),

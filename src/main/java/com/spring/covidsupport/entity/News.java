@@ -22,4 +22,10 @@ public class News extends Base {
   private String shortDescription;
   @Column(name = "content", columnDefinition = "TEXT")
   private String content;
+  @Column
+  private String district;
+  @Column
+  private String wardName;
+  @Column
+  private String groupNumber;
 }
