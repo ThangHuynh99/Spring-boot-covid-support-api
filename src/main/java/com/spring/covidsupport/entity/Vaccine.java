@@ -22,12 +22,12 @@ public class Vaccine {
   @Column private String vaccineName;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "civilian_id")
   private Civilian civilian;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "user_id")
   private UserEntity userE;
 }

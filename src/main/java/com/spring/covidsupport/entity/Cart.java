@@ -35,6 +35,8 @@ public class Cart extends Base {
   private String district;
   @Column
   private String address;
+  @Column(columnDefinition = "TEXT")
+  private String note;
 
   @JsonManagedReference
   @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)

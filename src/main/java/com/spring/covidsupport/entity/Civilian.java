@@ -29,7 +29,7 @@ public class Civilian extends Base {
   private VaccineStatus vaccineStatus;
 
   @JsonBackReference
-  @ManyToOne(cascade = CascadeType.ALL)
+  @ManyToOne
   @JoinColumn(name = "user_id")
   private UserEntity user;
 

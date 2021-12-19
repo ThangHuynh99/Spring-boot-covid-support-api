@@ -40,7 +40,7 @@ public class Product extends Base {
   private String unit;
 
   @JsonManagedReference
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "catagory_id")
   private Category category;
 }
