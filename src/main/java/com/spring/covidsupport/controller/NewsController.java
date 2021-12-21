@@ -59,7 +59,7 @@ public class NewsController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("")
+  @PostMapping("/all")
   public ResponseEntity<List<News>> findAll(@RequestBody LocationFiltterRequest locationFiltterRequest) {
     return ResponseEntity.ok(newsService.findAllByLocation(locationFiltterRequest));
   }
