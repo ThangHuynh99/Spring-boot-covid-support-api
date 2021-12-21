@@ -91,7 +91,7 @@ public class CartController {
   }
 
   @ApiOperation(
-      value = "get all cart by destination (ward, district, groupNumber)",
+      value = "get all cart by destination (ward, district, groupNumber) and status",
       response = Cart.class)
   @ApiResponses(
       value = {
@@ -100,9 +100,9 @@ public class CartController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("")
+  @PostMapping("location/{status}")
   public ResponseEntity<List<Cart>> getAllByDestination(
-      @RequestBody LocationFiltterRequest filter) {
-    return ResponseEntity.ok(cartService.getByDistination(filter));
+      @RequestBody LocationFiltterRequest filter, @PathVariable("status") int status) {
+    return ResponseEntity.ok(cartService.getByDestinationAndStatus(filter, status));
   }
 }

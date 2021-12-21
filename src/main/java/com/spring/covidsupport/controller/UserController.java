@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
   @Autowired private UserService userService;
 
@@ -36,7 +37,7 @@ public class UserController {
         @ApiResponse(code = 403, message = "Access denied"),
         @ApiResponse(code = 404, message = "Bad request")
       })
-  @GetMapping("")
+  @PostMapping("")
   public ResponseEntity<List<UserEntity>> getUsers(@RequestBody LocationFiltterRequest filter,
                                                    @RequestParam(value = "page", defaultValue = "1", required = false) int page) {
     Pageable pageable = PageRequest.of(page - 1, 20);

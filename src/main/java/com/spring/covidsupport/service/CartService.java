@@ -12,6 +12,6 @@ public interface CartService {
     ResponseEntity<?> updateCartStatus(long id, int status);
     Cart getOne(long id);
     List<Cart> getByUser(long id);
-    List<Cart> getByDistination(LocationFiltterRequest location);
+    List<Cart> getByDestinationAndStatus(LocationFiltterRequest location, int status);
     List<Cart> getByUserAndStatus(long userId, int status);
 }
