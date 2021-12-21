@@ -58,9 +58,8 @@ public class CartController {
         @ApiResponse(code = 404, message = "Bad request")
       })
   @GetMapping("/{idCart}")
-  public ResponseEntity<Cart> getOne(
-      @PathVariable("id") Long id, @PathVariable("idCart") long idCart) {
-    return ResponseEntity.ok().body(cartService.getOne(id));
+  public ResponseEntity<Cart> getOne(@PathVariable("idCart") long idCart) {
+    return ResponseEntity.ok().body(cartService.getOne(idCart));
   }
 
   @ApiOperation(value = "get all cart by user", response = Cart.class)

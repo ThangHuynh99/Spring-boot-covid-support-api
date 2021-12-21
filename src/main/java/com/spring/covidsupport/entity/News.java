@@ -27,5 +27,5 @@ public class News extends Base {
   @Column
   private String wardName;
   @Column
-  private String groupNumber;
+  private Long groupNumber;
 }

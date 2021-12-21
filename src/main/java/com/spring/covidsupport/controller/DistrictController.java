@@ -14,7 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/district")
-public class DistrictController {
+public class
+DistrictController {
     @Autowired
     private DistrictService districtService;
 
