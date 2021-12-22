@@ -27,4 +27,6 @@ public interface ProductService {
   List<Product> findByGroupNumberAndStatus(String wardName, boolean status);
 
   List<Product> findByStatusAndDistrictAndWard(String district, String ward);
+
+  List<Product> findByDisableStatusAndDistrictAndWard(String district, String ward);
 }

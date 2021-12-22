@@ -35,4 +35,19 @@ public class ProductUserController {
       @PathVariable("wardName") String wardName) {
     return ResponseEntity.ok(productService.findByStatusAndDistrictAndWard(dictrict, wardName));
   }
+
+  @ApiOperation(value = "find products by district, wardName and status = false", response = Product.class)
+  @ApiResponses(
+          value = {
+                  @ApiResponse(code = 200, message = "Success"),
+                  @ApiResponse(code = 401, message = "Unauthorization"),
+                  @ApiResponse(code = 403, message = "Access denied"),
+                  @ApiResponse(code = 404, message = "Bad request")
+          })
+  @GetMapping("disable/{district}/{wardName}")
+  public ResponseEntity<List<Product>> findByDisableStatusAndDistrictAndWard(
+          @PathVariable("district") String dictrict,
+          @PathVariable("wardName") String wardName) {
+    return ResponseEntity.ok(productService.findByDisableStatusAndDistrictAndWard(dictrict, wardName));
+  }
 }

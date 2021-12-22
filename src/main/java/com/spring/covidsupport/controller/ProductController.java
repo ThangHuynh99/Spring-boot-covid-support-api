@@ -16,8 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping(
-    value = "/api/v1/manager/product",
-    consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    value = "/api/v1/manager/product"
+   )
 @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')")
 public class ProductController {
   @Autowired private ProductService productService;

@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     Product product = productConverter.toEntity(productDTO);
     product.setCategory(checkCatagory(productDTO.getCatalogType()));
     product.setStatus(ProductConstant.AVAILABLE);
-    product.setGroupNumber(findByWardName(productDTO.getWardName()).intValue());
+//    product.setGroupNumber(findByWardName(productDTO.getWardName()).intValue());
     return productConverter.toDTO(productRepository.save(product));
   }
 
@@ -102,6 +102,11 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public List<Product> findByStatusAndDistrictAndWard(String district, String ward) {
     return productRepository.findByStatusAndDistrictAndWard(ProductConstant.AVAILABLE, district, ward);
+  }
+
+  @Override
+  public List<Product> findByDisableStatusAndDistrictAndWard(String district, String ward) {
+    return productRepository.findByStatusAndDistrictAndWard(ProductConstant.NOT_AVAILABLE, district, ward);
   }
 
   private Category checkCatagory(String catagoryCode) {
